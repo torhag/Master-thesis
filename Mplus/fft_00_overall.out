@@ -1,0 +1,462 @@
+Mplus VERSION 8.9
+MUTHEN & MUTHEN
+04/27/2023   3:33 PM
+
+INPUT INSTRUCTIONS
+
+  TITLE:
+      Exploratory analysis of FFT effectiveness during COVID-19
+      Descriptive statistics: whole sample
+
+  DATA:
+      file = "FFT.dat";
+
+  VARIABLE:
+      names =
+          ! Var # 1--7
+          agecoh ageter region age                        ! Admin var
+          compstat compbin trmtleng
+          ! Var # 8--11
+          immi1 immi2 female country                      ! Demographic
+          ! Var # 12--20
+          travel venu team                                ! Treament var
+          prior insti video refer foster psyhlth
+          ! Var # 21--26
+          innhome innvio innsch innlaw inndrug innsum     ! Admission (T0)
+          ! Var # 27--35
+          innyls1 innyls2 innyls3 innyls4 innyls5
+          innyls6 innyls7 innyls8 innylss
+          ! Var # 36--41
+          outhome outvio outsch outlaw outdrug outsum     ! Discharge (T1)
+          ! Var # 42--50
+          outyls1 outyls2 outyls3 outyls4 outyls5
+          outyls6 outyls7 outyls8 outylss
+          ! Var # 51--56                                  ! Follow-ups
+          home6 vio6 sch6 law6 drug6 sum6                 ! 6-month (T2)
+          ! Var # 57--62
+          home12 vio12 sch12 law12 drug12 sum12           ! 12-month (T3)
+          ! Var # 63--68
+          home18 vio18 sch18 law18 drug18 sum18           ! 18-month (T4)
+          ! Var # 69--74
+          t0 t1 t2 t3 t4 chgyls
+          ;
+
+      usevar =
+          innsum outsum sum6 sum12 sum18
+          innylss outylss
+          age female immi1 immi2
+          prior insti foster psyhlth chgyls
+          ;
+
+      missing = all (-999);
+
+  DATA IMPUTATION:
+      impute =
+          innsum outsum sum6 sum12 sum18
+          innylss outylss
+          age female immi1 immi2
+          prior insti foster psyhlth chgyls
+          ;
+      ndatasets = 10;
+      save = fft_0_desc_*.dat;
+
+  ANALYSIS:
+      type = basic;
+
+  OUTPUT:
+      sampstat;
+
+
+
+INPUT READING TERMINATED NORMALLY
+
+
+
+
+Exploratory analysis of FFT effectiveness during COVID-19
+Descriptive statistics: whole sample
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Average number of observations                                 518
+
+Number of replications
+    Requested                                                   10
+    Completed                                                   10
+
+Number of dependent variables                                   16
+Number of independent variables                                  0
+Number of continuous latent variables                            0
+
+Observed dependent variables
+
+  Continuous
+   INNSUM      OUTSUM      SUM6        SUM12       SUM18       INNYLSS
+   OUTYLSS     AGE         FEMALE      IMMI1       IMMI2       PRIOR
+   INSTI       FOSTER      PSYHLTH     CHGYLS
+
+
+Variables used for imputation
+
+  Variables imputed as continuous
+   INNSUM      OUTSUM      SUM6        SUM12       SUM18       INNYLSS
+   OUTYLSS     AGE         FEMALE      IMMI1       IMMI2       PRIOR
+   INSTI       FOSTER      PSYHLTH     CHGYLS
+
+
+Estimator                                                       ML
+Information matrix                                        OBSERVED
+Maximum number of iterations                                  1000
+Convergence criterion                                    0.500D-04
+Maximum number of steepest descent iterations                   20
+Maximum number of iterations for H1                           2000
+Convergence criterion for H1                             0.100D-03
+Specifications for Bayesian Estimation
+  Point estimate                                            MEDIAN
+  Number of Markov chain Monte Carlo (MCMC) chains               2
+  Random seed for the first chain                                0
+  Starting value information                           UNPERTURBED
+  Algorithm used for Markov chain Monte Carlo           GIBBS(PX1)
+  Convergence criterion                                  0.500D-01
+  Maximum number of iterations                               50000
+  K-th iteration used for thinning                               1
+Specifications for Data Imputation
+  Number of imputed data sets                                   10
+  H1 imputation model type                              COVARIANCE
+  Iteration intervals for thinning                             100
+
+Input data file(s)
+  FFT.dat
+
+Input data format  FREE
+
+
+SUMMARY OF DATA FOR THE FIRST DATA SET
+
+     Number of missing data patterns             1
+
+
+SUMMARY OF MISSING DATA PATTERNS FOR THE FIRST DATA SET
+
+
+     MISSING DATA PATTERNS (x = not missing)
+
+           1
+ INNSUM    x
+ OUTSUM    x
+ SUM6      x
+ SUM12     x
+ SUM18     x
+ INNYLSS   x
+ OUTYLSS   x
+ AGE       x
+ FEMALE    x
+ IMMI1     x
+ IMMI2     x
+ PRIOR     x
+ INSTI     x
+ FOSTER    x
+ PSYHLTH   x
+ CHGYLS    x
+
+
+     MISSING DATA PATTERN FREQUENCIES
+
+    Pattern   Frequency
+          1         518
+
+
+COVARIANCE COVERAGE OF DATA FOR THE FIRST DATA SET
+
+Minimum covariance coverage value   0.100
+
+
+     PROPORTION OF DATA PRESENT
+
+
+           Covariance Coverage
+              INNSUM        OUTSUM        SUM6          SUM12         SUM18
+              ________      ________      ________      ________      ________
+ INNSUM         1.000
+ OUTSUM         1.000         1.000
+ SUM6           1.000         1.000         1.000
+ SUM12          1.000         1.000         1.000         1.000
+ SUM18          1.000         1.000         1.000         1.000         1.000
+ INNYLSS        1.000         1.000         1.000         1.000         1.000
+ OUTYLSS        1.000         1.000         1.000         1.000         1.000
+ AGE            1.000         1.000         1.000         1.000         1.000
+ FEMALE         1.000         1.000         1.000         1.000         1.000
+ IMMI1          1.000         1.000         1.000         1.000         1.000
+ IMMI2          1.000         1.000         1.000         1.000         1.000
+ PRIOR          1.000         1.000         1.000         1.000         1.000
+ INSTI          1.000         1.000         1.000         1.000         1.000
+ FOSTER         1.000         1.000         1.000         1.000         1.000
+ PSYHLTH        1.000         1.000         1.000         1.000         1.000
+ CHGYLS         1.000         1.000         1.000         1.000         1.000
+
+
+           Covariance Coverage
+              INNYLSS       OUTYLSS       AGE           FEMALE        IMMI1
+              ________      ________      ________      ________      ________
+ INNYLSS        1.000
+ OUTYLSS        1.000         1.000
+ AGE            1.000         1.000         1.000
+ FEMALE         1.000         1.000         1.000         1.000
+ IMMI1          1.000         1.000         1.000         1.000         1.000
+ IMMI2          1.000         1.000         1.000         1.000         1.000
+ PRIOR          1.000         1.000         1.000         1.000         1.000
+ INSTI          1.000         1.000         1.000         1.000         1.000
+ FOSTER         1.000         1.000         1.000         1.000         1.000
+ PSYHLTH        1.000         1.000         1.000         1.000         1.000
+ CHGYLS         1.000         1.000         1.000         1.000         1.000
+
+
+           Covariance Coverage
+              IMMI2         PRIOR         INSTI         FOSTER        PSYHLTH
+              ________      ________      ________      ________      ________
+ IMMI2          1.000
+ PRIOR          1.000         1.000
+ INSTI          1.000         1.000         1.000
+ FOSTER         1.000         1.000         1.000         1.000
+ PSYHLTH        1.000         1.000         1.000         1.000         1.000
+ CHGYLS         1.000         1.000         1.000         1.000         1.000
+
+
+           Covariance Coverage
+              CHGYLS
+              ________
+ CHGYLS         1.000
+
+
+
+RESULTS FOR BASIC ANALYSIS
+
+NOTE:  These are average results over 10 data sets.
+
+
+     ESTIMATED SAMPLE STATISTICS
+
+
+           Means
+              INNSUM        OUTSUM        SUM6          SUM12         SUM18
+              ________      ________      ________      ________      ________
+                4.106         4.770         3.455         4.517         4.524
+
+
+           Means
+              INNYLSS       OUTYLSS       AGE           FEMALE        IMMI1
+              ________      ________      ________      ________      ________
+               11.701         5.994        14.214         0.494         0.112
+
+
+           Means
+              IMMI2         PRIOR         INSTI         FOSTER        PSYHLTH
+              ________      ________      ________      ________      ________
+                0.120         0.112         0.124         0.071         0.591
+
+
+           Means
+              CHGYLS
+              ________
+                5.707
+
+
+           Covariances
+              INNSUM        OUTSUM        SUM6          SUM12         SUM18
+              ________      ________      ________      ________      ________
+ INNSUM         0.921
+ OUTSUM         0.187         0.347
+ SUM6           0.377         0.418         4.610
+ SUM12          0.200         0.149         0.908         0.586
+ SUM18          0.208         0.135         0.852         0.418         0.563
+ INNYLSS       -2.901        -0.808        -0.909        -1.084        -0.981
+ OUTYLSS       -1.816        -1.422        -3.311        -1.456        -1.336
+ AGE           -0.222        -0.061        -0.265        -0.230        -0.211
+ FEMALE         0.036         0.021         0.045         0.004         0.016
+ IMMI1         -0.035        -0.011        -0.015         0.002        -0.017
+ IMMI2          0.009         0.002        -0.048        -0.012        -0.009
+ PRIOR         -0.041         0.001        -0.028        -0.028        -0.015
+ INSTI         -0.114        -0.026        -0.063        -0.012        -0.016
+ FOSTER        -0.004         0.001        -0.081        -0.037        -0.029
+ PSYHLTH       -0.082        -0.017         0.022        -0.047        -0.052
+ CHGYLS        -1.085         0.614         2.402         0.372         0.355
+
+
+           Covariances
+              INNYLSS       OUTYLSS       AGE           FEMALE        IMMI1
+              ________      ________      ________      ________      ________
+ INNYLSS       28.800
+ OUTYLSS       15.813        19.925
+ AGE            0.470        -0.223         3.767
+ FEMALE        -0.286        -0.225         0.095         0.250
+ IMMI1          0.089         0.024         0.047         0.001         0.099
+ IMMI2         -0.177        -0.115        -0.024         0.006        -0.013
+ PRIOR          0.395         0.205        -0.034        -0.005        -0.013
+ INSTI          0.272         0.201         0.058         0.014         0.019
+ FOSTER         0.021         0.118         0.006        -0.002         0.002
+ PSYHLTH        0.563         0.420         0.115         0.015        -0.006
+ CHGYLS        12.987        -4.112         0.692        -0.062         0.066
+
+
+           Covariances
+              IMMI2         PRIOR         INSTI         FOSTER        PSYHLTH
+              ________      ________      ________      ________      ________
+ IMMI2          0.105
+ PRIOR          0.000         0.099
+ INSTI          0.001         0.007         0.108
+ FOSTER        -0.001         0.004         0.001         0.066
+ PSYHLTH       -0.011         0.011         0.016         0.008         0.242
+ CHGYLS        -0.061         0.189         0.071        -0.097         0.142
+
+
+           Covariances
+              CHGYLS
+              ________
+ CHGYLS        17.099
+
+
+           Correlations
+              INNSUM        OUTSUM        SUM6          SUM12         SUM18
+              ________      ________      ________      ________      ________
+ INNSUM         1.000
+ OUTSUM         0.330         1.000
+ SUM6           0.183         0.330         1.000
+ SUM12          0.272         0.331         0.552         1.000
+ SUM18          0.289         0.305         0.529         0.728         1.000
+ INNYLSS       -0.563        -0.256        -0.079        -0.264        -0.244
+ OUTYLSS       -0.424        -0.541        -0.345        -0.426        -0.399
+ AGE           -0.119        -0.053        -0.064        -0.155        -0.145
+ FEMALE         0.076         0.071         0.041         0.011         0.043
+ IMMI1         -0.116        -0.059        -0.023         0.008        -0.073
+ IMMI2          0.027         0.013        -0.069        -0.048        -0.035
+ PRIOR         -0.135         0.003        -0.041        -0.117        -0.062
+ INSTI         -0.359        -0.132        -0.089        -0.048        -0.067
+ FOSTER        -0.015         0.006        -0.147        -0.189        -0.148
+ PSYHLTH       -0.174        -0.058         0.021        -0.124        -0.141
+ CHGYLS        -0.273         0.252         0.271         0.118         0.114
+
+
+           Correlations
+              INNYLSS       OUTYLSS       AGE           FEMALE        IMMI1
+              ________      ________      ________      ________      ________
+ INNYLSS        1.000
+ OUTYLSS        0.660         1.000
+ AGE            0.045        -0.026         1.000
+ FEMALE        -0.107        -0.101         0.098         1.000
+ IMMI1          0.053         0.017         0.078         0.004         1.000
+ IMMI2         -0.101        -0.079        -0.038         0.040        -0.131
+ PRIOR          0.233         0.146        -0.055        -0.033        -0.126
+ INSTI          0.154         0.137         0.092         0.086         0.183
+ FOSTER         0.015         0.103         0.012        -0.019         0.020
+ PSYHLTH        0.213         0.192         0.120         0.061        -0.041
+ CHGYLS         0.585        -0.223         0.086        -0.030         0.050
+
+
+           Correlations
+              IMMI2         PRIOR         INSTI         FOSTER        PSYHLTH
+              ________      ________      ________      ________      ________
+ IMMI2          1.000
+ PRIOR          0.001         1.000
+ INSTI          0.006         0.071         1.000
+ FOSTER        -0.010         0.044         0.010         1.000
+ PSYHLTH       -0.068         0.071         0.098         0.063         1.000
+ CHGYLS        -0.046         0.145         0.052        -0.091         0.070
+
+
+           Correlations
+              CHGYLS
+              ________
+ CHGYLS         1.000
+
+
+UNIVARIATE SAMPLE STATISTICS
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     INNSUM                4.106      -1.078       0.000    0.19%       3.000      4.000      4.000
+             518.000       0.921       0.959       5.000   41.31%       5.000      5.000
+     OUTSUM                4.770      -3.184       1.000    0.39%       5.000      5.000      5.000
+             518.000       0.347      11.749       5.000   83.20%       5.000      5.000
+     SUM6                  3.467      -0.908       0.000   26.18%       0.000      4.000      5.000
+             508.000       4.580      -1.037       5.000   57.48%       5.000      5.000
+     SUM12                 4.712      -3.135       0.000    0.31%       4.000      5.000      5.000
+             326.000       0.444      12.655       5.000   79.14%       5.000      5.000
+     SUM18                 4.700      -2.888       0.000    0.36%       4.000      5.000      5.000
+             277.000       0.448      10.956       5.000   78.70%       5.000      5.000
+     INNYLSS              11.701       0.406       0.000    0.19%       7.000     10.000     12.000
+             518.000      28.800       0.220      29.000    0.58%      13.000     16.000
+     OUTYLSS               5.994       1.210       0.000    5.02%       2.000      4.000      5.000
+             518.000      19.925       1.916      26.000    0.19%       6.000      9.000
+     AGE                  14.214      -0.687       6.000    0.19%      13.000     14.000     15.000
+             518.000       3.767       0.666      18.000    1.16%      15.000     16.000
+     FEMALE                0.494       0.023       0.000   50.58%       0.000      0.000      0.000
+             518.000       0.250      -1.999       1.000   49.42%       1.000      1.000
+     IMMI1                 0.112       2.461       0.000   88.80%       0.000      0.000      0.000
+             518.000       0.099       4.057       1.000   11.20%       0.000      0.000
+     IMMI2                 0.120       2.343       0.000   88.03%       0.000      0.000      0.000
+             518.000       0.105       3.491       1.000   11.97%       0.000      0.000
+     PRIOR                 0.112       2.461       0.000   88.80%       0.000      0.000      0.000
+             518.000       0.099       4.057       1.000   11.20%       0.000      0.000
+     INSTI                 0.124       2.288       0.000   87.64%       0.000      0.000      0.000
+             518.000       0.108       3.235       1.000   12.36%       0.000      0.000
+     FOSTER                0.071       3.328       0.000   92.86%       0.000      0.000      0.000
+             518.000       0.066       9.077       1.000    7.14%       0.000      0.000
+     PSYHLTH               0.591      -0.369       0.000   40.93%       0.000      0.000      1.000
+             518.000       0.242      -1.864       1.000   59.07%       1.000      1.000
+     CHGYLS                5.707       0.563     -12.000    0.19%       2.000      4.000      5.000
+             518.000      17.099       1.545      25.000    0.19%       6.000      9.000
+
+
+SAVEDATA INFORMATION
+
+
+  Save file
+    fft_0_desc_*.dat
+
+  Order of variables
+
+    INNSUM
+    OUTSUM
+    SUM6
+    SUM12
+    SUM18
+    INNYLSS
+    OUTYLSS
+    AGE
+    FEMALE
+    IMMI1
+    IMMI2
+    PRIOR
+    INSTI
+    FOSTER
+    PSYHLTH
+    CHGYLS
+
+  Save file format           Free
+
+  Save file record length    10000
+
+  Save missing symbol        *
+
+
+     Beginning Time:  15:33:10
+        Ending Time:  15:33:14
+       Elapsed Time:  00:00:04
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2023 Muthen & Muthen

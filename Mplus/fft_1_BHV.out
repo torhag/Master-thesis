@@ -1,0 +1,253 @@
+Mplus VERSION 8.9
+MUTHEN & MUTHEN
+05/10/2023   5:47 PM
+
+INPUT INSTRUCTIONS
+
+  TITLE:
+      Exploratory analysis of FFT effectiveness during COVID-19
+      Outcome var chgsum
+
+  DATA:
+      file = "FFT.dat";
+      ngroups = 3;
+
+  VARIABLE:
+      names =
+          ! Var # 1--7
+          agecoh ageter region age                        ! Admin var
+          compstat compbin trmtleng
+          ! Var # 8--11
+          immi1 immi2 female country                      ! Demographic
+          ! Var # 12--20
+          travel venu team                                ! Treament var
+          prior insti video refer foster psyhlth
+          ! Var # 21--26
+          innhome innvio innsch innlaw inndrug innsum     ! Admission (T0)
+          ! Var # 27--35
+          innyls1 innyls2 innyls3 innyls4 innyls5
+          innyls6 innyls7 innyls8 innylss
+          ! Var # 36--41
+          outhome outvio outsch outlaw outdrug outsum     ! Discharge (T1)
+          ! Var # 42--50
+          outyls1 outyls2 outyls3 outyls4 outyls5
+          outyls6 outyls7 outyls8 outylss
+          ! Var # 51--56                                  ! Follow-ups
+          home6 vio6 sch6 law6 drug6 sum6                 ! 6-month (T2)
+          ! Var # 57--62
+          home12 vio12 sch12 law12 drug12 sum12           ! 12-month (T3)
+          ! Var # 63--68
+          home18 vio18 sch18 law18 drug18 sum18           ! 18-month (T4)
+          ! Var # 69--75
+          t0 t1 t2 t3 t4 chgsum chgyls                    ! Derived var
+          ;
+
+      usevar =
+          chgsum
+          age female immi1 immi2
+          prior insti foster psyhlth
+          ;
+
+      missing = all (-999);
+
+      grouping = agecoh (1 = before 2 = during 3 = after);
+
+  DATA IMPUTATION:
+      impute =
+          chgsum
+          age female immi1 immi2
+          prior insti foster psyhlth
+          ;
+      ndatasets = 10;
+      save = fft_1_sum_*.dat;
+
+  ANALYSIS:
+      estimator = mlr;
+
+  MODEL:
+      chgsum on
+          age female immi1 immi2
+          prior insti foster psyhlth
+          ;
+
+  OUTPUT:
+      stdyx;
+
+
+
+INPUT READING TERMINATED NORMALLY
+
+
+
+
+Exploratory analysis of FFT effectiveness during COVID-19
+Outcome var chgsum
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 3
+Average number of observations
+   Group BEFORE                                                147
+   Group DURING                                                159
+   Group AFTER                                                 212
+   Total sample size                                           518
+
+Number of replications
+    Requested                                                   10
+    Completed                                                   10
+
+Number of dependent variables                                    1
+Number of independent variables                                  8
+Number of continuous latent variables                            0
+
+Observed dependent variables
+
+  Continuous
+   CHGSUM
+
+Observed independent variables
+   AGE         FEMALE      IMMI1       IMMI2       PRIOR       INSTI
+   FOSTER      PSYHLTH
+
+Variables with special functions
+
+  Grouping variable     AGECOH
+
+Variables used for imputation
+
+  Variables imputed as continuous
+   CHGSUM      AGE         FEMALE      IMMI1       IMMI2       PRIOR
+   INSTI       FOSTER      PSYHLTH
+
+
+Estimator                                                      MLR
+Information matrix                                        OBSERVED
+Maximum number of iterations                                  1000
+Convergence criterion                                    0.500D-04
+Maximum number of steepest descent iterations                   20
+Maximum number of iterations for H1                           2000
+Convergence criterion for H1                             0.100D-03
+Specifications for Bayesian Estimation
+  Point estimate                                            MEDIAN
+  Number of Markov chain Monte Carlo (MCMC) chains               2
+  Random seed for the first chain                                0
+  Starting value information                           UNPERTURBED
+  Algorithm used for Markov chain Monte Carlo           GIBBS(PX1)
+  Convergence criterion                                  0.500D-01
+  Maximum number of iterations                               50000
+  K-th iteration used for thinning                               1
+Specifications for Data Imputation
+  Number of imputed data sets                                   10
+  H1 imputation model type                              COVARIANCE
+  Iteration intervals for thinning                             100
+
+Input data file(s)
+  FFT.dat
+
+Input data format  FREE
+
+
+STANDARDIZED MODEL RESULTS
+
+
+STDYX Standardization
+
+                                                    Two-Tailed   Rate of
+                    Estimate       S.E.  Est./S.E.    P-Value    Missing
+
+Group BEFORE
+
+ CHGSUM   ON
+    AGE                0.143      0.070      2.055      0.040      0.000
+    FEMALE             0.017      0.079      0.221      0.825      0.000
+    IMMI1             -0.051      0.073     -0.696      0.487      0.000
+    IMMI2             -0.059      0.062     -0.951      0.342      0.000
+    PRIOR              0.100      0.085      1.170      0.242      0.000
+    INSTI              0.245      0.101      2.433      0.015      0.000
+    FOSTER             0.080      0.088      0.912      0.362      0.000
+    PSYHLTH            0.070      0.083      0.846      0.398      0.000
+
+ Intercepts
+    CHGSUM            -0.441      0.447     -0.985      0.324      0.000
+
+ Residual Variances
+    CHGSUM             0.865      0.070     12.286      0.000      0.000
+
+Group DURING
+
+ CHGSUM   ON
+    AGE                0.112      0.070      1.591      0.112      0.000
+    FEMALE            -0.138      0.072     -1.907      0.057      0.000
+    IMMI1              0.111      0.071      1.567      0.117      0.000
+    IMMI2             -0.020      0.072     -0.279      0.780      0.000
+    PRIOR              0.143      0.085      1.681      0.093      0.000
+    INSTI              0.365      0.074      4.924      0.000      0.000
+    FOSTER             0.001      0.059      0.019      0.985      0.000
+    PSYHLTH            0.104      0.075      1.381      0.167      0.000
+
+ Intercepts
+    CHGSUM            -0.386      0.550     -0.703      0.482      0.000
+
+ Residual Variances
+    CHGSUM             0.762      0.061     12.544      0.000      0.000
+
+Group AFTER
+
+ CHGSUM   ON
+    AGE               -0.071      0.072     -0.986      0.324      0.000
+    FEMALE            -0.063      0.065     -0.968      0.333      0.000
+    IMMI1              0.079      0.062      1.274      0.203      0.000
+    IMMI2              0.018      0.056      0.325      0.745      0.000
+    PRIOR              0.089      0.059      1.502      0.133      0.000
+    INSTI              0.154      0.077      2.006      0.045      0.000
+    FOSTER            -0.089      0.057     -1.579      0.114      0.000
+    PSYHLTH            0.170      0.063      2.686      0.007      0.000
+
+ Intercepts
+    CHGSUM             0.977      0.530      1.842      0.065      0.000
+
+ Residual Variances
+    CHGSUM             0.919      0.032     28.578      0.000      0.000
+
+
+R-SQUARE
+
+Group BEFORE
+
+    Observed                                        Two-Tailed   Rate of
+    Variable        Estimate       S.E.  Est./S.E.    P-Value    Missing
+
+    CHGSUM             0.135      0.070      1.914      0.056      0.000
+
+Group DURING
+
+    Observed                                        Two-Tailed   Rate of
+    Variable        Estimate       S.E.  Est./S.E.    P-Value    Missing
+
+    CHGSUM             0.238      0.061      3.908      0.000      0.000
+
+Group AFTER
+
+    Observed                                        Two-Tailed   Rate of
+    Variable        Estimate       S.E.  Est./S.E.    P-Value    Missing
+
+    CHGSUM             0.081      0.032      2.522      0.012      0.000
+
+
+
+     Beginning Time:  17:47:55
+        Ending Time:  17:48:11
+       Elapsed Time:  00:00:16
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2023 Muthen & Muthen

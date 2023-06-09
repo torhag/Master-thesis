@@ -7,9 +7,9 @@ fft <- fft[, c(1, 4, 8:10, 15:16, 19:20, 26, 35, 41, 50, 56, 62, 68, 74:75)]
 # Assign names to columns
 names(fft) <- c(
     "agecoh", "age", "immi1", "immi2", "female",
-    "prior", "insti", "foster", "psyhlth",
-    "innsum", "innylss", "outsum", "outylss",
-    "sum6", "sum12", "sum18", "chgsum", "chgyls"
+    "prior", "insti", "foster", "psyc",
+    "bhv0", "rsk0", "bhv1", "rsk1",
+    "bhv6", "bhv12", "bhv18", "chgbhv", "chgrsk"
 )
 
 #########################
@@ -35,21 +35,21 @@ temp <- data.frame(matrix(NA, nrow = 10, ncol = 4))
 names(temp) <- c("df_1", "df_2", "F-stat", "p-value")
 # Assign row names
 row.names(temp) <- c(
-    "innsum", "innylss",
+    "bhv0", "rsk0",
     "age", "female", "immi1", "immi2",
-    "prior", "insti", "foster", "psyhlth"
+    "prior", "insti", "foster", "psyc"
 )
 
 # Outcome variables
-temp[1, 1] <- unlist(summary(aov(innsum ~ agecoh, data = fft)))[1]
-temp[1, 2] <- unlist(summary(aov(innsum ~ agecoh, data = fft)))[2]
-temp[1, 3] <- unlist(summary(aov(innsum ~ agecoh, data = fft)))[7]
-temp[1, 4] <- unlist(summary(aov(innsum ~ agecoh, data = fft)))[9]
+temp[1, 1] <- unlist(summary(aov(bhv0 ~ agecoh, data = fft)))[1]
+temp[1, 2] <- unlist(summary(aov(bhv0 ~ agecoh, data = fft)))[2]
+temp[1, 3] <- unlist(summary(aov(bhv0 ~ agecoh, data = fft)))[7]
+temp[1, 4] <- unlist(summary(aov(bhv0 ~ agecoh, data = fft)))[9]
 
-temp[2, 1] <- unlist(summary(aov(innylss ~ agecoh, data = fft)))[1]
-temp[2, 2] <- unlist(summary(aov(innylss ~ agecoh, data = fft)))[2]
-temp[2, 3] <- unlist(summary(aov(innylss ~ agecoh, data = fft)))[7]
-temp[2, 4] <- unlist(summary(aov(innylss ~ agecoh, data = fft)))[9]
+temp[2, 1] <- unlist(summary(aov(rsk0 ~ agecoh, data = fft)))[1]
+temp[2, 2] <- unlist(summary(aov(rsk0 ~ agecoh, data = fft)))[2]
+temp[2, 3] <- unlist(summary(aov(rsk0 ~ agecoh, data = fft)))[7]
+temp[2, 4] <- unlist(summary(aov(rsk0 ~ agecoh, data = fft)))[9]
 
 # Demographics
 temp[3, 1] <- unlist(summary(aov(age ~ agecoh, data = fft)))[1]
@@ -88,10 +88,10 @@ temp[9, 2] <- unlist(summary(aov(foster ~ agecoh, data = fft)))[2]
 temp[9, 3] <- unlist(summary(aov(foster ~ agecoh, data = fft)))[7]
 temp[9, 4] <- unlist(summary(aov(foster ~ agecoh, data = fft)))[9]
 
-temp[10, 1] <- unlist(summary(aov(psyhlth ~ agecoh, data = fft)))[1]
-temp[10, 2] <- unlist(summary(aov(psyhlth ~ agecoh, data = fft)))[2]
-temp[10, 3] <- unlist(summary(aov(psyhlth ~ agecoh, data = fft)))[7]
-temp[10, 4] <- unlist(summary(aov(psyhlth ~ agecoh, data = fft)))[9]
+temp[10, 1] <- unlist(summary(aov(psyc ~ agecoh, data = fft)))[1]
+temp[10, 2] <- unlist(summary(aov(psyc ~ agecoh, data = fft)))[2]
+temp[10, 3] <- unlist(summary(aov(psyc ~ agecoh, data = fft)))[7]
+temp[10, 4] <- unlist(summary(aov(psyc ~ agecoh, data = fft)))[9]
 
 # Round F-statistics and p-values
 temp[, 3] <- round(temp[, 3], 2)
@@ -103,17 +103,17 @@ temp
 # Plot effectiveness measures #
 ###############################
 
-# Frequency tables for behavioural chagnes
-table(unlist(fft$chgsum)) # Full sample
-table(unlist(fft$chgsum[which(fft$agecoh == 1)])) # Before
-table(unlist(fft$chgsum[which(fft$agecoh == 2)])) # During
-table(unlist(fft$chgsum[which(fft$agecoh == 3)])) # After
+# Frequency tables for behavioural improvement
+table(unlist(fft$chgbhv)) # Full sample
+table(unlist(fft$chgbhv[which(fft$agecoh == 1)])) # Group A
+table(unlist(fft$chgbhv[which(fft$agecoh == 2)])) # Group B
+table(unlist(fft$chgbhv[which(fft$agecoh == 3)])) # Group C
 
 # Frequency tables for risk reduction
-table(unlist(fft$chgyls)) # Full sample
-table(unlist(fft$chgyls[which(fft$agecoh == 1)])) # Before
-table(unlist(fft$chgyls[which(fft$agecoh == 2)])) # During
-table(unlist(fft$chgyls[which(fft$agecoh == 3)])) # After
+table(unlist(fft$chgrsk)) # Full sample
+table(unlist(fft$chgrsk[which(fft$agecoh == 1)])) # Group A
+table(unlist(fft$chgrsk[which(fft$agecoh == 2)])) # Group B
+table(unlist(fft$chgrsk[which(fft$agecoh == 3)])) # Group C
 
 # Activate package for mimicking distribution by moments
 library(PearsonDS)
@@ -122,129 +122,129 @@ pdf("FFT_effectiveness.pdf", paper = "a4")
 # Reset canvas to 3-row by 2-column. Plot top-down, then left-right
 par(mfcol = c(3, 2))
 # Ret common scales
-sum_common_x <- c(-3, 5)
-sum_common_break <- 8
-x_seq <- seq(min(sum_common_x), max(sum_common_x), 0.1)
+bhv_common_x <- c(-3, 5)
+bhv_common_break <- 8
+x_seq <- seq(min(bhv_common_x), max(bhv_common_x), 0.1)
 
-hist(fft$chgsum[which(fft$agecoh == 1)],
-    xlim = sum_common_x,
-    breaks = sum_common_break,
+hist(fft$chgbhv[which(fft$agecoh == 1)],
+    xlim = bhv_common_x,
+    breaks = bhv_common_break,
     freq = FALSE,
-    xlab = "Before", main = "FFT Increase in National Outcome Goals"
+    xlab = "Group A", main = "FFT Behavioral Improvement"
 )
 # Red zero line
 abline(v = 0, col = "red")
 # Blue distribution curve
 # Superimpose on histogram
 par(new = TRUE)
-# Extract "before"
-before <- fft$chgsum[which(fft$agecoh == 1)]
-# Discard NAs in "before"
-before <- before[!is.na(before)]
+# Extract Group A
+A <- fft$chgbhv[which(fft$agecoh == 1)]
+# Discard NAs in Group A
+A <- A[!is.na(A)]
 plot(
     # Series of x
     x_seq,
     # Series of y
     dpearson(
         x_seq,
-        moments = empMoments(before)
+        moments = empMoments(A)
     ),
     xlab = "", ylab = "", axes = FALSE, # Turn off labels and axes
     type = "l", col = "blue" # Line style and colour
 )
 
-hist(fft$chgsum[which(fft$agecoh == 2)],
-    xlim = sum_common_x,
-    breaks = sum_common_break, freq = FALSE,
-    xlab = "During", main = ""
+hist(fft$chgbhv[which(fft$agecoh == 2)],
+    xlim = bhv_common_x,
+    breaks = bhv_common_break, freq = FALSE,
+    xlab = "Group B", main = ""
 )
 abline(v = 0, col = "red")
 par(new = TRUE)
-during <- fft$chgsum[which(fft$agecoh == 2)]
-during <- during[!is.na(during)]
+B <- fft$chgbhv[which(fft$agecoh == 2)]
+B <- B[!is.na(B)]
 plot(
     x_seq,
     dpearson(
         x_seq,
-        moments = empMoments(during)
+        moments = empMoments(B)
     ),
     xlab = "", ylab = "",
     type = "l", col = "blue", axes = FALSE
 )
 
-hist(fft$chgsum[which(fft$agecoh == 3)],
-    xlim = sum_common_x,
-    breaks = sum_common_break, freq = FALSE,
-    xlab = "After", main = ""
+hist(fft$chgbhv[which(fft$agecoh == 3)],
+    xlim = bhv_common_x,
+    breaks = bhv_common_break, freq = FALSE,
+    xlab = "Group C", main = ""
 )
 abline(v = 0, col = "red")
 par(new = TRUE)
-after <- fft$chgsum[which(fft$agecoh == 3)]
-after <- after[!is.na(after)]
+C <- fft$chgbhv[which(fft$agecoh == 3)]
+C <- C[!is.na(C)]
 plot(
     x_seq,
     dpearson(
         x_seq,
-        moments = empMoments(after)
+        moments = empMoments(C)
     ),
     xlab = "", ylab = "",
     type = "l", col = "blue", axes = FALSE
 )
 
-yls_common_x <- c(-10, 30)
-yls_common_break <- 20
-x_seq <- seq(min(yls_common_x), max(yls_common_x), 0.1)
+rsk_common_x <- c(-10, 30)
+rsk_common_break <- 20
+x_seq <- seq(min(rsk_common_x), max(rsk_common_x), 0.1)
 
-hist(fft$chgyls[which(fft$agecoh == 1)],
-    xlim = yls_common_x,
-    breaks = yls_common_break, freq = FALSE,
-    xlab = "Before", main = "FFT Reduction in Risk Levels"
+hist(fft$chgrsk[which(fft$agecoh == 1)],
+    xlim = rsk_common_x,
+    breaks = rsk_common_break, freq = FALSE,
+    xlab = "Group A", main = "FFT Risk Reduction"
 )
 abline(v = 0, col = "red")
 par(new = TRUE)
-before <- fft$chgyls[which(fft$agecoh == 1)]
-before <- before[!is.na(before)]
+A <- fft$chgrsk[which(fft$agecoh == 1)]
+A <- A[!is.na(A)]
 plot(
     x_seq,
     dpearson(
         x_seq,
-        moments = empMoments(before)
+        moments = empMoments(A)
     ),
     xlab = "", ylab = "",
     type = "l", col = "blue", axes = FALSE
 )
-hist(fft$chgyls[which(fft$agecoh == 2)],
-    xlim = yls_common_x,
-    breaks = yls_common_break, freq = FALSE,
-    xlab = "During", main = ""
+hist(fft$chgrsk[which(fft$agecoh == 2)],
+    xlim = rsk_common_x,
+    breaks = rsk_common_break, freq = FALSE,
+    xlab = "Group B", main = ""
 )
 abline(v = 0, col = "red")
 par(new = TRUE)
-during <- fft$chgyls[which(fft$agecoh == 2)]
-during <- during[!is.na(during)]
+B <- fft$chgrsk[which(fft$agecoh == 2)]
+B <- B[!is.na(B)]
 plot(
     x_seq,
     dpearson(
         x_seq,
-        moments = empMoments(during)
+        moments = empMoments(B)
     ),
     xlab = "", ylab = "",
     type = "l", col = "blue", axes = FALSE
 )
-hist(fft$chgyls[which(fft$agecoh == 3)],
-    xlim = yls_common_x,
-    breaks = yls_common_break, freq = FALSE,
-    xlab = "After", main = ""
+hist(fft$chgrsk[which(fft$agecoh == 3)],
+    xlim = rsk_common_x,
+    breaks = rsk_common_break, freq = FALSE,
+    xlab = "Group C", main = ""
 )
 abline(v = 0, col = "red")
 par(new = TRUE)
-after <- fft$chgyls[which(fft$agecoh == 3)]
-after <- after[!is.na(after)]
+C <- fft$chgrsk[which(fft$agecoh == 3)]
+C <- C[!is.na(C)]
 plot(
     x_seq,
     dpearson(
         x_seq,
-        moments = empMoments(after)
+        moments = empMoments(C)
     ),
     xlab = "", ylab = "",
     type = "l", col = "blue", axes = FALSE

@@ -1,12 +1,12 @@
 Mplus VERSION 8.9
 MUTHEN & MUTHEN
-05/10/2023   5:48 PM
+06/06/2023   3:33 AM
 
 INPUT INSTRUCTIONS
 
   TITLE:
       Exploratory analysis of FFT effectiveness during COVID-19
-      Outcome var chgyls
+      Outcome var chgrsk
 
   DATA:
       file = "FFT.dat";
@@ -21,53 +21,53 @@ INPUT INSTRUCTIONS
           immi1 immi2 female country                      ! Demographic
           ! Var # 12--20
           travel venu team                                ! Treament var
-          prior insti video refer foster psyhlth
+          prior insti video refer foster psyc
           ! Var # 21--26
-          innhome innvio innsch innlaw inndrug innsum     ! Admission (T0)
+          innhome innvio innsch innlaw inndrug bhv0       ! Admission (T0)
           ! Var # 27--35
           innyls1 innyls2 innyls3 innyls4 innyls5
-          innyls6 innyls7 innyls8 innylss
+          innyls6 innyls7 innyls8 rsk0
           ! Var # 36--41
-          outhome outvio outsch outlaw outdrug outsum     ! Discharge (T1)
+          outhome outvio outsch outlaw outdrug bhv1       ! Discharge (T1)
           ! Var # 42--50
           outyls1 outyls2 outyls3 outyls4 outyls5
-          outyls6 outyls7 outyls8 outylss
+          outyls6 outyls7 outyls8 rsk1
           ! Var # 51--56                                  ! Follow-ups
-          home6 vio6 sch6 law6 drug6 sum6                 ! 6-month (T2)
+          home6 vio6 sch6 law6 drug6 bhv6                 ! 6-month (T2)
           ! Var # 57--62
-          home12 vio12 sch12 law12 drug12 sum12           ! 12-month (T3)
+          home12 vio12 sch12 law12 drug12 bhv12           ! 12-month (T3)
           ! Var # 63--68
-          home18 vio18 sch18 law18 drug18 sum18           ! 18-month (T4)
+          home18 vio18 sch18 law18 drug18 bhv18           ! 18-month (T4)
           ! Var # 69--75
-          t0 t1 t2 t3 t4 chgsum chgyls                    ! Derived var
+          t0 t1 t2 t3 t4 chgbhv chgrsk                    ! Derived var
           ;
 
       usevar =
-          chgyls
+          chgrsk
           age female immi1 immi2
-          prior insti foster psyhlth
+          prior insti foster psyc
           ;
 
       missing = all (-999);
 
-      grouping = agecoh (1 = before 2 = during 3 = after);
+      grouping = agecoh (1 = A 2 = B 3 = C);
 
   DATA IMPUTATION:
       impute =
-          chgyls
+          chgrsk
           age female immi1 immi2
-          prior insti foster psyhlth
+          prior insti foster psyc
           ;
       ndatasets = 10;
-      save = fft_2_yls_*.dat;
+      save = fft_2_rsk_*.dat;
 
   ANALYSIS:
       estimator = mlr;
 
   MODEL:
-      chgyls on
+      chgrsk on
           age female immi1 immi2
-          prior insti foster psyhlth
+          prior insti foster psyc
       ;
 
   OUTPUT:
@@ -81,15 +81,15 @@ INPUT READING TERMINATED NORMALLY
 
 
 Exploratory analysis of FFT effectiveness during COVID-19
-Outcome var chgyls
+Outcome var chgrsk
 
 SUMMARY OF ANALYSIS
 
 Number of groups                                                 3
 Average number of observations
-   Group BEFORE                                                147
-   Group DURING                                                159
-   Group AFTER                                                 212
+   Group A                                                     147
+   Group B                                                     159
+   Group C                                                     212
    Total sample size                                           518
 
 Number of replications
@@ -103,11 +103,11 @@ Number of continuous latent variables                            0
 Observed dependent variables
 
   Continuous
-   CHGYLS
+   CHGRSK
 
 Observed independent variables
    AGE         FEMALE      IMMI1       IMMI2       PRIOR       INSTI
-   FOSTER      PSYHLTH
+   FOSTER      PSYC
 
 Variables with special functions
 
@@ -116,8 +116,8 @@ Variables with special functions
 Variables used for imputation
 
   Variables imputed as continuous
-   CHGYLS      AGE         FEMALE      IMMI1       IMMI2       PRIOR
-   INSTI       FOSTER      PSYHLTH
+   CHGRSK      AGE         FEMALE      IMMI1       IMMI2       PRIOR
+   INSTI       FOSTER      PSYC
 
 
 Estimator                                                      MLR
@@ -147,6 +147,729 @@ Input data file(s)
 Input data format  FREE
 
 
+SUMMARY OF DATA FOR THE FIRST DATA SET
+
+   Group A
+     Number of missing data patterns             1
+
+   Group B
+     Number of missing data patterns             1
+
+   Group C
+     Number of missing data patterns             1
+
+
+SUMMARY OF MISSING DATA PATTERNS FOR THE FIRST DATA SET
+
+
+     MISSING DATA PATTERNS FOR A (x = not missing)
+
+           1
+ CHGRSK    x
+ AGE       x
+ FEMALE    x
+ IMMI1     x
+ IMMI2     x
+ PRIOR     x
+ INSTI     x
+ FOSTER    x
+ PSYC      x
+
+
+     MISSING DATA PATTERN FREQUENCIES FOR A
+
+    Pattern   Frequency
+          1         147
+
+
+     MISSING DATA PATTERNS FOR B (x = not missing)
+
+           1
+ CHGRSK    x
+ AGE       x
+ FEMALE    x
+ IMMI1     x
+ IMMI2     x
+ PRIOR     x
+ INSTI     x
+ FOSTER    x
+ PSYC      x
+
+
+     MISSING DATA PATTERN FREQUENCIES FOR B
+
+    Pattern   Frequency
+          1         159
+
+
+     MISSING DATA PATTERNS FOR C (x = not missing)
+
+           1
+ CHGRSK    x
+ AGE       x
+ FEMALE    x
+ IMMI1     x
+ IMMI2     x
+ PRIOR     x
+ INSTI     x
+ FOSTER    x
+ PSYC      x
+
+
+     MISSING DATA PATTERN FREQUENCIES FOR C
+
+    Pattern   Frequency
+          1         212
+
+
+COVARIANCE COVERAGE OF DATA FOR THE FIRST DATA SET
+
+Minimum covariance coverage value   0.100
+
+
+     PROPORTION OF DATA PRESENT FOR A
+
+
+           Covariance Coverage
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK         1.000
+ AGE            1.000         1.000
+ FEMALE         1.000         1.000         1.000
+ IMMI1          1.000         1.000         1.000         1.000
+ IMMI2          1.000         1.000         1.000         1.000         1.000
+ PRIOR          1.000         1.000         1.000         1.000         1.000
+ INSTI          1.000         1.000         1.000         1.000         1.000
+ FOSTER         1.000         1.000         1.000         1.000         1.000
+ PSYC           1.000         1.000         1.000         1.000         1.000
+
+
+           Covariance Coverage
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ PRIOR          1.000
+ INSTI          1.000         1.000
+ FOSTER         1.000         1.000         1.000
+ PSYC           1.000         1.000         1.000         1.000
+
+
+     PROPORTION OF DATA PRESENT FOR B
+
+
+           Covariance Coverage
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK         1.000
+ AGE            1.000         1.000
+ FEMALE         1.000         1.000         1.000
+ IMMI1          1.000         1.000         1.000         1.000
+ IMMI2          1.000         1.000         1.000         1.000         1.000
+ PRIOR          1.000         1.000         1.000         1.000         1.000
+ INSTI          1.000         1.000         1.000         1.000         1.000
+ FOSTER         1.000         1.000         1.000         1.000         1.000
+ PSYC           1.000         1.000         1.000         1.000         1.000
+
+
+           Covariance Coverage
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ PRIOR          1.000
+ INSTI          1.000         1.000
+ FOSTER         1.000         1.000         1.000
+ PSYC           1.000         1.000         1.000         1.000
+
+
+     PROPORTION OF DATA PRESENT FOR C
+
+
+           Covariance Coverage
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK         1.000
+ AGE            1.000         1.000
+ FEMALE         1.000         1.000         1.000
+ IMMI1          1.000         1.000         1.000         1.000
+ IMMI2          1.000         1.000         1.000         1.000         1.000
+ PRIOR          1.000         1.000         1.000         1.000         1.000
+ INSTI          1.000         1.000         1.000         1.000         1.000
+ FOSTER         1.000         1.000         1.000         1.000         1.000
+ PSYC           1.000         1.000         1.000         1.000         1.000
+
+
+           Covariance Coverage
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ PRIOR          1.000
+ INSTI          1.000         1.000
+ FOSTER         1.000         1.000         1.000
+ PSYC           1.000         1.000         1.000         1.000
+
+
+SAMPLE STATISTICS
+
+NOTE:  These are average results over 10 data sets.
+
+
+     ESTIMATED SAMPLE STATISTICS FOR A
+
+
+           Means
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+                5.891        14.027         0.463         0.102         0.088
+
+
+           Means
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+                0.109         0.109         0.061         0.565
+
+
+           Covariances
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK        23.512
+ AGE            1.411         4.163
+ FEMALE         0.159         0.137         0.249
+ IMMI1          0.140         0.045        -0.013         0.092
+ IMMI2          0.016        -0.009         0.014        -0.009         0.081
+ PRIOR          0.141        -0.098         0.011        -0.011        -0.003
+ INSTI          0.168         0.031        -0.003         0.009        -0.003
+ FOSTER        -0.143         0.046         0.006        -0.006         0.008
+ PSYC           0.075         0.202         0.025         0.010        -0.016
+
+
+           Covariances
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ PRIOR          0.097
+ INSTI          0.022         0.097
+ FOSTER         0.007         0.007         0.057
+ PSYC           0.013         0.020        -0.001         0.246
+
+
+           Correlations
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK         1.000
+ AGE            0.143         1.000
+ FEMALE         0.066         0.135         1.000
+ IMMI1          0.096         0.073        -0.087         1.000
+ IMMI2          0.012        -0.016         0.095        -0.105         1.000
+ PRIOR          0.093        -0.155         0.070        -0.118        -0.032
+ INSTI          0.111         0.049        -0.018         0.099        -0.032
+ FOSTER        -0.123         0.094         0.048        -0.086         0.120
+ PSYC           0.031         0.200         0.099         0.069        -0.113
+
+
+           Correlations
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ PRIOR          1.000
+ INSTI          0.229         1.000
+ FOSTER         0.093         0.093         1.000
+ PSYC           0.087         0.131        -0.005         1.000
+
+
+     ESTIMATED SAMPLE STATISTICS FOR B
+
+
+           Means
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+                5.931        14.503         0.491         0.113         0.164
+
+
+           Means
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+                0.113         0.138         0.075         0.572
+
+
+           Covariances
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK        16.794
+ AGE            1.249         3.596
+ FEMALE        -0.325         0.061         0.250
+ IMMI1         -0.017         0.081         0.007         0.100
+ IMMI2         -0.008         0.062         0.008        -0.019         0.137
+ PRIOR          0.234         0.006        -0.024        -0.013         0.000
+ INSTI          0.116         0.075         0.026         0.028         0.009
+ FOSTER         0.012         0.006         0.001         0.010        -0.012
+ PSYC           0.323         0.052         0.040        -0.008        -0.006
+
+
+           Covariances
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ PRIOR          0.100
+ INSTI          0.009         0.119
+ FOSTER         0.004         0.002         0.070
+ PSYC           0.017         0.009         0.013         0.245
+
+
+           Correlations
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK         1.000
+ AGE            0.161         1.000
+ FEMALE        -0.158         0.065         1.000
+ IMMI1         -0.013         0.135         0.046         1.000
+ IMMI2         -0.005         0.089         0.042        -0.158         1.000
+ PRIOR          0.180         0.010        -0.152        -0.128         0.003
+ INSTI          0.082         0.115         0.153         0.259         0.069
+ FOSTER         0.011         0.012         0.005         0.123        -0.126
+ PSYC           0.159         0.055         0.162        -0.052        -0.030
+
+
+           Correlations
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ PRIOR          1.000
+ INSTI          0.087         1.000
+ FOSTER         0.048         0.023         1.000
+ PSYC           0.108         0.052         0.103         1.000
+
+
+     ESTIMATED SAMPLE STATISTICS FOR C
+
+
+           Means
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+                5.410        14.127         0.519         0.118         0.108
+
+
+           Means
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+                0.113         0.123         0.075         0.623
+
+
+           Covariances
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK        12.733
+ AGE           -0.274         3.526
+ FEMALE        -0.005         0.090         0.250
+ IMMI1          0.079         0.023         0.005         0.104
+ IMMI2         -0.162        -0.113         0.000        -0.013         0.097
+ PRIOR          0.189        -0.019        -0.002        -0.013         0.002
+ INSTI         -0.031         0.060         0.017         0.019        -0.004
+ FOSTER        -0.144        -0.024        -0.011         0.001         0.001
+ PSYC           0.070         0.105        -0.012        -0.017        -0.011
+
+
+           Covariances
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ PRIOR          0.100
+ INSTI         -0.004         0.108
+ FOSTER         0.001        -0.005         0.070
+ PSYC           0.005         0.018         0.010         0.235
+
+
+           Correlations
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK         1.000
+ AGE           -0.041         1.000
+ FEMALE        -0.003         0.095         1.000
+ IMMI1          0.069         0.038         0.030         1.000
+ IMMI2         -0.146        -0.193         0.002        -0.128         1.000
+ PRIOR          0.168        -0.032        -0.013        -0.131         0.019
+ INSTI         -0.027         0.097         0.101         0.175        -0.038
+ FOSTER        -0.153        -0.048        -0.082         0.006         0.015
+ PSYC           0.040         0.115        -0.049        -0.108        -0.073
+
+
+           Correlations
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ PRIOR          1.000
+ INSTI         -0.043         1.000
+ FOSTER         0.011        -0.052         1.000
+ PSYC           0.032         0.113         0.075         1.000
+
+
+UNIVARIATE SAMPLE STATISTICS
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS FOR A
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     CHGRSK                5.891       0.931      -7.000    0.68%       2.000      4.000      5.000
+             147.000      23.512       1.523      25.000    0.68%       6.000      9.000
+     AGE                  14.027      -0.888       7.000    1.36%      12.000     14.000     14.000
+             147.000       4.163       0.853      18.000    0.68%      15.000     16.000
+     FEMALE                0.463       0.150       0.000   53.74%       0.000      0.000      0.000
+             147.000       0.249      -1.977       1.000   46.26%       1.000      1.000
+     IMMI1                 0.102       2.629       0.000   89.80%       0.000      0.000      0.000
+             147.000       0.092       4.914       1.000   10.20%       0.000      0.000
+     IMMI2                 0.088       2.899       0.000   91.16%       0.000      0.000      0.000
+             147.000       0.081       6.405       1.000    8.84%       0.000      0.000
+     PRIOR                 0.109       2.512       0.000   89.12%       0.000      0.000      0.000
+             147.000       0.097       4.310       1.000   10.88%       0.000      0.000
+     INSTI                 0.109       2.512       0.000   89.12%       0.000      0.000      0.000
+             147.000       0.097       4.310       1.000   10.88%       0.000      0.000
+     FOSTER                0.061       3.660       0.000   93.88%       0.000      0.000      0.000
+             147.000       0.057      11.399       1.000    6.12%       0.000      0.000
+     PSYC                  0.565      -0.261       0.000   43.54%       0.000      0.000      1.000
+             147.000       0.246      -1.932       1.000   56.46%       1.000      1.000
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS FOR B
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     CHGRSK                5.931       0.106     -12.000    0.63%       2.000      4.000      5.000
+             159.000      16.794       1.812      19.000    0.63%       7.000     10.000
+     AGE                  14.503      -0.901       6.000    0.63%      13.000     14.000     15.000
+             159.000       3.596       1.942      18.000    1.26%      15.000     16.000
+     FEMALE                0.491       0.038       0.000   50.94%       0.000      0.000      0.000
+             159.000       0.250      -1.999       1.000   49.06%       1.000      1.000
+     IMMI1                 0.113       2.442       0.000   88.68%       0.000      0.000      0.000
+             159.000       0.100       3.961       1.000   11.32%       0.000      0.000
+     IMMI2                 0.164       1.820       0.000   83.65%       0.000      0.000      0.000
+             159.000       0.137       1.311       1.000   16.35%       0.000      0.000
+     PRIOR                 0.113       2.442       0.000   88.68%       0.000      0.000      0.000
+             159.000       0.100       3.961       1.000   11.32%       0.000      0.000
+     INSTI                 0.138       2.095       0.000   86.16%       0.000      0.000      0.000
+             159.000       0.119       2.388       1.000   13.84%       0.000      0.000
+     FOSTER                0.075       3.214       0.000   92.45%       0.000      0.000      0.000
+             159.000       0.070       8.332       1.000    7.55%       0.000      0.000
+     PSYC                  0.572      -0.292       0.000   42.77%       0.000      0.000      1.000
+             159.000       0.245      -1.915       1.000   57.23%       1.000      1.000
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS FOR C
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     CHGRSK                5.410       0.266      -2.000    1.42%       2.000      4.000      5.000
+             212.000      12.733      -0.307      16.000    0.47%       6.000      9.000
+     AGE                  14.127      -0.338       9.000    0.94%      12.000     14.000     14.000
+             212.000       3.526      -0.475      18.000    1.42%      15.000     16.000
+     FEMALE                0.519      -0.076       0.000   48.11%       0.000      0.000      1.000
+             212.000       0.250      -1.994       1.000   51.89%       1.000      1.000
+     IMMI1                 0.118       2.369       0.000   88.21%       0.000      0.000      0.000
+             212.000       0.104       3.614       1.000   11.79%       0.000      0.000
+     IMMI2                 0.108       2.518       0.000   89.15%       0.000      0.000      0.000
+             212.000       0.097       4.339       1.000   10.85%       0.000      0.000
+     PRIOR                 0.113       2.442       0.000   88.68%       0.000      0.000      0.000
+             212.000       0.100       3.961       1.000   11.32%       0.000      0.000
+     INSTI                 0.123       2.301       0.000   87.74%       0.000      0.000      0.000
+             212.000       0.108       3.294       1.000   12.26%       0.000      0.000
+     FOSTER                0.075       3.214       0.000   92.45%       0.000      0.000      0.000
+             212.000       0.070       8.332       1.000    7.55%       0.000      0.000
+     PSYC                  0.623      -0.506       0.000   37.74%       0.000      1.000      1.000
+             212.000       0.235      -1.744       1.000   62.26%       1.000      1.000
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       30
+
+Loglikelihood
+
+    H0 Value
+
+        Mean                             -1436.011
+        Std Dev                              0.000
+        Number of successful computations       10
+
+             Proportions                   Percentiles
+        Expected    Observed         Expected       Observed
+           0.990       1.000        -1436.011      -1436.011
+           0.980       1.000        -1436.011      -1436.011
+           0.950       1.000        -1436.011      -1436.011
+           0.900       1.000        -1436.011      -1436.011
+           0.800       1.000        -1436.011      -1436.011
+           0.700       1.000        -1436.011      -1436.011
+           0.500       0.100        -1436.011      -1436.011
+           0.300       0.100        -1436.011      -1436.011
+           0.200       0.100        -1436.011      -1436.011
+           0.100       0.100        -1436.011      -1436.011
+           0.050       0.100        -1436.011      -1436.011
+           0.020       0.100        -1436.011      -1436.011
+           0.010       0.100        -1436.011      -1436.011
+
+    H1 Value
+
+        Mean                             -1436.011
+        Std Dev                              0.000
+        Number of successful computations       10
+
+             Proportions                   Percentiles
+        Expected    Observed         Expected       Observed
+           0.990       1.000        -1436.011      -1436.011
+           0.980       1.000        -1436.011      -1436.011
+           0.950       1.000        -1436.011      -1436.011
+           0.900       0.000        -1436.011      -1436.011
+           0.800       0.000        -1436.011      -1436.011
+           0.700       0.000        -1436.011      -1436.011
+           0.500       0.000        -1436.011      -1436.011
+           0.300       0.000        -1436.011      -1436.011
+           0.200       0.000        -1436.011      -1436.011
+           0.100       0.000        -1436.011      -1436.011
+           0.050       0.000        -1436.011      -1436.011
+           0.020       0.000        -1436.011      -1436.011
+           0.010       0.000        -1436.011      -1436.011
+
+Information Criteria
+
+    Akaike (AIC)
+
+        Mean                              2932.022
+        Std Dev                              0.000
+        Number of successful computations       10
+
+             Proportions                   Percentiles
+        Expected    Observed         Expected       Observed
+           0.990       0.900         2932.022       2932.022
+           0.980       0.900         2932.022       2932.022
+           0.950       0.900         2932.022       2932.022
+           0.900       0.900         2932.022       2932.022
+           0.800       0.900         2932.022       2932.022
+           0.700       0.900         2932.022       2932.022
+           0.500       0.900         2932.022       2932.022
+           0.300       0.000         2932.022       2932.022
+           0.200       0.000         2932.022       2932.022
+           0.100       0.000         2932.022       2932.022
+           0.050       0.000         2932.022       2932.022
+           0.020       0.000         2932.022       2932.022
+           0.010       0.000         2932.022       2932.022
+
+    Bayesian (BIC)
+
+        Mean                              3059.521
+        Std Dev                              0.000
+        Number of successful computations       10
+
+             Proportions                   Percentiles
+        Expected    Observed         Expected       Observed
+           0.990       0.900         3059.521       3059.521
+           0.980       0.900         3059.521       3059.521
+           0.950       0.900         3059.521       3059.521
+           0.900       0.900         3059.521       3059.521
+           0.800       0.900         3059.521       3059.521
+           0.700       0.900         3059.521       3059.521
+           0.500       0.900         3059.521       3059.521
+           0.300       0.000         3059.521       3059.521
+           0.200       0.000         3059.521       3059.521
+           0.100       0.000         3059.521       3059.521
+           0.050       0.000         3059.521       3059.521
+           0.020       0.000         3059.521       3059.521
+           0.010       0.000         3059.521       3059.521
+
+    Sample-Size Adjusted BIC (n* = (n + 2) / 24)
+
+        Mean                              2964.295
+        Std Dev                              0.000
+        Number of successful computations       10
+
+             Proportions                   Percentiles
+        Expected    Observed         Expected       Observed
+           0.990       0.900         2964.295       2964.295
+           0.980       0.900         2964.295       2964.295
+           0.950       0.900         2964.295       2964.295
+           0.900       0.900         2964.295       2964.295
+           0.800       0.900         2964.295       2964.295
+           0.700       0.900         2964.295       2964.295
+           0.500       0.900         2964.295       2964.295
+           0.300       0.000         2964.295       2964.295
+           0.200       0.000         2964.295       2964.295
+           0.100       0.000         2964.295       2964.295
+           0.050       0.000         2964.295       2964.295
+           0.020       0.000         2964.295       2964.295
+           0.010       0.000         2964.295       2964.295
+
+Chi-Square Test of Model Fit
+
+        Degrees of freedom                       0
+
+        Mean                                 0.000
+        Std Dev                              0.000
+        Number of successful computations       10
+
+             Proportions                   Percentiles
+        Expected    Observed         Expected       Observed
+           0.990       1.000            0.000          0.000
+           0.980       1.000            0.000          0.000
+           0.950       1.000            0.000          0.000
+           0.900       1.000            0.000          0.000
+           0.800       1.000            0.000          0.000
+           0.700       1.000            0.000          0.000
+           0.500       1.000            0.000          0.000
+           0.300       1.000            0.000          0.000
+           0.200       1.000            0.000          0.000
+           0.100       1.000            0.000          0.000
+           0.050       1.000            0.000          0.000
+           0.020       1.000            0.000          0.000
+           0.010       1.000            0.000          0.000
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+        Mean                                 0.000
+        Std Dev                              0.000
+        Number of successful computations       10
+
+        Cumulative Distribution Function
+           Value    Function Value
+           0.990       1.000
+           0.980       1.000
+           0.950       1.000
+           0.900       1.000
+           0.800       1.000
+           0.700       1.000
+           0.500       1.000
+           0.300       1.000
+           0.200       1.000
+           0.100       1.000
+           0.050       1.000
+           0.020       1.000
+           0.010       1.000
+
+CFI/TLI
+
+    CFI
+
+        Mean                                 1.000
+        Std Dev                              0.000
+        Number of successful computations       10
+
+        Cumulative Distribution Function
+           Value    Function Value
+           0.990       0.000
+           0.980       0.000
+           0.950       0.000
+           0.900       0.000
+           0.800       0.000
+           0.700       0.000
+           0.500       0.000
+           0.300       0.000
+           0.200       0.000
+           0.100       0.000
+           0.050       0.000
+           0.020       0.000
+           0.010       0.000
+
+    TLI
+
+        Mean                                 1.000
+        Std Dev                              0.000
+        Number of successful computations       10
+
+        Cumulative Distribution Function
+           Value    Function Value
+           0.990       0.000
+           0.980       0.000
+           0.950       0.000
+           0.900       0.000
+           0.800       0.000
+           0.700       0.000
+           0.500       0.000
+           0.300       0.000
+           0.200       0.000
+           0.100       0.000
+           0.050       0.000
+           0.020       0.000
+           0.010       0.000
+
+SRMR (Standardized Root Mean Square Residual)
+
+        Mean                                 0.000
+        Std Dev                              0.000
+        Number of successful computations       10
+
+        Cumulative Distribution Function
+           Value    Function Value
+           0.990       1.000
+           0.980       1.000
+           0.950       1.000
+           0.900       1.000
+           0.800       1.000
+           0.700       1.000
+           0.500       1.000
+           0.300       1.000
+           0.200       1.000
+           0.100       1.000
+           0.050       1.000
+           0.020       1.000
+           0.010       1.000
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed   Rate of
+                    Estimate       S.E.  Est./S.E.    P-Value    Missing
+
+Group A
+
+ CHGRSK   ON
+    AGE                0.395      0.184      2.152      0.031      0.000
+    FEMALE             0.492      0.753      0.653      0.514      0.000
+    IMMI1              1.392      1.555      0.895      0.371      0.000
+    IMMI2              0.703      1.425      0.493      0.622      0.000
+    PRIOR              1.940      1.536      1.263      0.206      0.000
+    INSTI              1.359      1.383      0.983      0.326      0.000
+    FOSTER            -3.203      1.137     -2.816      0.005      0.000
+    PSYC              -0.307      0.817     -0.376      0.707      0.000
+
+ Intercepts
+    CHGRSK            -0.074      2.515     -0.030      0.976      0.000
+
+ Residual Variances
+    CHGRSK            21.731      2.851      7.621      0.000      0.000
+
+Group B
+
+ CHGRSK   ON
+    AGE                0.342      0.142      2.411      0.016      0.000
+    FEMALE            -1.531      0.674     -2.272      0.023      0.000
+    IMMI1             -0.311      0.914     -0.340      0.734      0.000
+    IMMI2             -0.197      0.777     -0.254      0.800      0.000
+    PRIOR              1.596      1.013      1.576      0.115      0.000
+    INSTI              0.967      0.886      1.091      0.275      0.000
+    FOSTER            -0.219      0.774     -0.283      0.777      0.000
+    PSYC               1.347      0.671      2.008      0.045      0.000
+
+ Intercepts
+    CHGRSK             0.720      1.988      0.362      0.717      0.000
+
+ Residual Variances
+    CHGRSK            14.945      2.102      7.111      0.000      0.000
+
+Group C
+
+ CHGRSK   ON
+    AGE               -0.147      0.120     -1.224      0.221      0.000
+    FEMALE            -0.010      0.475     -0.021      0.984      0.000
+    IMMI1              1.018      0.691      1.473      0.141      0.000
+    IMMI2             -1.697      0.496     -3.423      0.001      0.000
+    PRIOR              1.999      0.875      2.284      0.022      0.000
+    INSTI             -0.531      0.869     -0.611      0.541      0.000
+    FOSTER            -2.217      0.777     -2.852      0.004      0.000
+    PSYC               0.445      0.483      0.921      0.357      0.000
+
+ Intercepts
+    CHGRSK             7.280      1.737      4.191      0.000      0.000
+
+ Residual Variances
+    CHGRSK            11.590      0.959     12.082      0.000      0.000
+
+
+QUALITY OF NUMERICAL RESULTS
+
+     Average Condition Number for the Information Matrix      0.326E-04
+       (ratio of smallest to largest eigenvalue)
+
+
 STANDARDIZED MODEL RESULTS
 
 
@@ -155,9 +878,9 @@ STDYX Standardization
                                                     Two-Tailed   Rate of
                     Estimate       S.E.  Est./S.E.    P-Value    Missing
 
-Group BEFORE
+Group A
 
- CHGYLS   ON
+ CHGRSK   ON
     AGE                0.166      0.070      2.363      0.018      0.000
     FEMALE             0.051      0.077      0.657      0.511      0.000
     IMMI1              0.087      0.097      0.895      0.371      0.000
@@ -165,17 +888,17 @@ Group BEFORE
     PRIOR              0.125      0.096      1.300      0.193      0.000
     INSTI              0.087      0.087      0.998      0.318      0.000
     FOSTER            -0.158      0.057     -2.766      0.006      0.000
-    PSYHLTH           -0.031      0.083     -0.377      0.706      0.000
+    PSYC              -0.031      0.083     -0.377      0.706      0.000
 
  Intercepts
-    CHGYLS            -0.015      0.518     -0.030      0.976      0.000
+    CHGRSK            -0.015      0.518     -0.030      0.976      0.000
 
  Residual Variances
-    CHGYLS             0.924      0.045     20.557      0.000      0.000
+    CHGRSK             0.924      0.045     20.557      0.000      0.000
 
-Group DURING
+Group B
 
- CHGYLS   ON
+ CHGRSK   ON
     AGE                0.158      0.062      2.551      0.011      0.000
     FEMALE            -0.187      0.077     -2.416      0.016      0.000
     IMMI1             -0.024      0.071     -0.340      0.734      0.000
@@ -183,17 +906,17 @@ Group DURING
     PRIOR              0.123      0.078      1.573      0.116      0.000
     INSTI              0.081      0.074      1.106      0.269      0.000
     FOSTER            -0.014      0.050     -0.283      0.777      0.000
-    PSYHLTH            0.163      0.078      2.076      0.038      0.000
+    PSYC               0.163      0.078      2.076      0.038      0.000
 
  Intercepts
-    CHGYLS             0.176      0.492      0.357      0.721      0.000
+    CHGRSK             0.176      0.492      0.357      0.721      0.000
 
  Residual Variances
-    CHGYLS             0.890      0.048     18.715      0.000      0.000
+    CHGRSK             0.890      0.048     18.715      0.000      0.000
 
-Group AFTER
+Group C
 
- CHGYLS   ON
+ CHGRSK   ON
     AGE               -0.077      0.063     -1.217      0.223      0.000
     FEMALE            -0.001      0.066     -0.021      0.984      0.000
     IMMI1              0.092      0.063      1.462      0.144      0.000
@@ -201,43 +924,845 @@ Group AFTER
     PRIOR              0.178      0.075      2.353      0.019      0.000
     INSTI             -0.049      0.080     -0.609      0.543      0.000
     FOSTER            -0.164      0.058     -2.812      0.005      0.000
-    PSYHLTH            0.060      0.066      0.922      0.357      0.000
+    PSYC               0.060      0.066      0.922      0.357      0.000
 
  Intercepts
-    CHGYLS             2.040      0.501      4.076      0.000      0.000
+    CHGRSK             2.040      0.501      4.076      0.000      0.000
 
  Residual Variances
-    CHGYLS             0.910      0.034     26.744      0.000      0.000
+    CHGRSK             0.910      0.034     26.744      0.000      0.000
 
 
 R-SQUARE
 
-Group BEFORE
+Group A
 
     Observed                                        Two-Tailed   Rate of
     Variable        Estimate       S.E.  Est./S.E.    P-Value    Missing
 
-    CHGYLS             0.076      0.045      1.684      0.092      0.000
+    CHGRSK             0.076      0.045      1.684      0.092      0.000
 
-Group DURING
-
-    Observed                                        Two-Tailed   Rate of
-    Variable        Estimate       S.E.  Est./S.E.    P-Value    Missing
-
-    CHGYLS             0.110      0.048      2.316      0.021      0.000
-
-Group AFTER
+Group B
 
     Observed                                        Two-Tailed   Rate of
     Variable        Estimate       S.E.  Est./S.E.    P-Value    Missing
 
-    CHGYLS             0.090      0.034      2.636      0.008      0.000
+    CHGRSK             0.110      0.048      2.316      0.021      0.000
+
+Group C
+
+    Observed                                        Two-Tailed   Rate of
+    Variable        Estimate       S.E.  Est./S.E.    P-Value    Missing
+
+    CHGRSK             0.090      0.034      2.636      0.008      0.000
 
 
+TECHNICAL 1 OUTPUT
 
-     Beginning Time:  17:48:13
-        Ending Time:  17:48:23
-       Elapsed Time:  00:00:10
+
+     PARAMETER SPECIFICATION FOR A
+
+
+           NU
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+                  0             0             0             0             0
+
+
+           NU
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+                  0             0             0             0
+
+
+           LAMBDA
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK             0             0             0             0             0
+ AGE                0             0             0             0             0
+ FEMALE             0             0             0             0             0
+ IMMI1              0             0             0             0             0
+ IMMI2              0             0             0             0             0
+ PRIOR              0             0             0             0             0
+ INSTI              0             0             0             0             0
+ FOSTER             0             0             0             0             0
+ PSYC               0             0             0             0             0
+
+
+           LAMBDA
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ CHGRSK             0             0             0             0
+ AGE                0             0             0             0
+ FEMALE             0             0             0             0
+ IMMI1              0             0             0             0
+ IMMI2              0             0             0             0
+ PRIOR              0             0             0             0
+ INSTI              0             0             0             0
+ FOSTER             0             0             0             0
+ PSYC               0             0             0             0
+
+
+           THETA
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK             0
+ AGE                0             0
+ FEMALE             0             0             0
+ IMMI1              0             0             0             0
+ IMMI2              0             0             0             0             0
+ PRIOR              0             0             0             0             0
+ INSTI              0             0             0             0             0
+ FOSTER             0             0             0             0             0
+ PSYC               0             0             0             0             0
+
+
+           THETA
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ PRIOR              0
+ INSTI              0             0
+ FOSTER             0             0             0
+ PSYC               0             0             0             0
+
+
+           ALPHA
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+                  1             0             0             0             0
+
+
+           ALPHA
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+                  0             0             0             0
+
+
+           BETA
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK             0             2             3             4             5
+ AGE                0             0             0             0             0
+ FEMALE             0             0             0             0             0
+ IMMI1              0             0             0             0             0
+ IMMI2              0             0             0             0             0
+ PRIOR              0             0             0             0             0
+ INSTI              0             0             0             0             0
+ FOSTER             0             0             0             0             0
+ PSYC               0             0             0             0             0
+
+
+           BETA
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ CHGRSK             6             7             8             9
+ AGE                0             0             0             0
+ FEMALE             0             0             0             0
+ IMMI1              0             0             0             0
+ IMMI2              0             0             0             0
+ PRIOR              0             0             0             0
+ INSTI              0             0             0             0
+ FOSTER             0             0             0             0
+ PSYC               0             0             0             0
+
+
+           PSI
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK            10
+ AGE                0             0
+ FEMALE             0             0             0
+ IMMI1              0             0             0             0
+ IMMI2              0             0             0             0             0
+ PRIOR              0             0             0             0             0
+ INSTI              0             0             0             0             0
+ FOSTER             0             0             0             0             0
+ PSYC               0             0             0             0             0
+
+
+           PSI
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ PRIOR              0
+ INSTI              0             0
+ FOSTER             0             0             0
+ PSYC               0             0             0             0
+
+
+     PARAMETER SPECIFICATION FOR B
+
+
+           NU
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+                  0             0             0             0             0
+
+
+           NU
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+                  0             0             0             0
+
+
+           LAMBDA
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK             0             0             0             0             0
+ AGE                0             0             0             0             0
+ FEMALE             0             0             0             0             0
+ IMMI1              0             0             0             0             0
+ IMMI2              0             0             0             0             0
+ PRIOR              0             0             0             0             0
+ INSTI              0             0             0             0             0
+ FOSTER             0             0             0             0             0
+ PSYC               0             0             0             0             0
+
+
+           LAMBDA
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ CHGRSK             0             0             0             0
+ AGE                0             0             0             0
+ FEMALE             0             0             0             0
+ IMMI1              0             0             0             0
+ IMMI2              0             0             0             0
+ PRIOR              0             0             0             0
+ INSTI              0             0             0             0
+ FOSTER             0             0             0             0
+ PSYC               0             0             0             0
+
+
+           THETA
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK             0
+ AGE                0             0
+ FEMALE             0             0             0
+ IMMI1              0             0             0             0
+ IMMI2              0             0             0             0             0
+ PRIOR              0             0             0             0             0
+ INSTI              0             0             0             0             0
+ FOSTER             0             0             0             0             0
+ PSYC               0             0             0             0             0
+
+
+           THETA
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ PRIOR              0
+ INSTI              0             0
+ FOSTER             0             0             0
+ PSYC               0             0             0             0
+
+
+           ALPHA
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+                 11             0             0             0             0
+
+
+           ALPHA
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+                  0             0             0             0
+
+
+           BETA
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK             0            12            13            14            15
+ AGE                0             0             0             0             0
+ FEMALE             0             0             0             0             0
+ IMMI1              0             0             0             0             0
+ IMMI2              0             0             0             0             0
+ PRIOR              0             0             0             0             0
+ INSTI              0             0             0             0             0
+ FOSTER             0             0             0             0             0
+ PSYC               0             0             0             0             0
+
+
+           BETA
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ CHGRSK            16            17            18            19
+ AGE                0             0             0             0
+ FEMALE             0             0             0             0
+ IMMI1              0             0             0             0
+ IMMI2              0             0             0             0
+ PRIOR              0             0             0             0
+ INSTI              0             0             0             0
+ FOSTER             0             0             0             0
+ PSYC               0             0             0             0
+
+
+           PSI
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK            20
+ AGE                0             0
+ FEMALE             0             0             0
+ IMMI1              0             0             0             0
+ IMMI2              0             0             0             0             0
+ PRIOR              0             0             0             0             0
+ INSTI              0             0             0             0             0
+ FOSTER             0             0             0             0             0
+ PSYC               0             0             0             0             0
+
+
+           PSI
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ PRIOR              0
+ INSTI              0             0
+ FOSTER             0             0             0
+ PSYC               0             0             0             0
+
+
+     PARAMETER SPECIFICATION FOR C
+
+
+           NU
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+                  0             0             0             0             0
+
+
+           NU
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+                  0             0             0             0
+
+
+           LAMBDA
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK             0             0             0             0             0
+ AGE                0             0             0             0             0
+ FEMALE             0             0             0             0             0
+ IMMI1              0             0             0             0             0
+ IMMI2              0             0             0             0             0
+ PRIOR              0             0             0             0             0
+ INSTI              0             0             0             0             0
+ FOSTER             0             0             0             0             0
+ PSYC               0             0             0             0             0
+
+
+           LAMBDA
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ CHGRSK             0             0             0             0
+ AGE                0             0             0             0
+ FEMALE             0             0             0             0
+ IMMI1              0             0             0             0
+ IMMI2              0             0             0             0
+ PRIOR              0             0             0             0
+ INSTI              0             0             0             0
+ FOSTER             0             0             0             0
+ PSYC               0             0             0             0
+
+
+           THETA
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK             0
+ AGE                0             0
+ FEMALE             0             0             0
+ IMMI1              0             0             0             0
+ IMMI2              0             0             0             0             0
+ PRIOR              0             0             0             0             0
+ INSTI              0             0             0             0             0
+ FOSTER             0             0             0             0             0
+ PSYC               0             0             0             0             0
+
+
+           THETA
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ PRIOR              0
+ INSTI              0             0
+ FOSTER             0             0             0
+ PSYC               0             0             0             0
+
+
+           ALPHA
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+                 21             0             0             0             0
+
+
+           ALPHA
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+                  0             0             0             0
+
+
+           BETA
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK             0            22            23            24            25
+ AGE                0             0             0             0             0
+ FEMALE             0             0             0             0             0
+ IMMI1              0             0             0             0             0
+ IMMI2              0             0             0             0             0
+ PRIOR              0             0             0             0             0
+ INSTI              0             0             0             0             0
+ FOSTER             0             0             0             0             0
+ PSYC               0             0             0             0             0
+
+
+           BETA
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ CHGRSK            26            27            28            29
+ AGE                0             0             0             0
+ FEMALE             0             0             0             0
+ IMMI1              0             0             0             0
+ IMMI2              0             0             0             0
+ PRIOR              0             0             0             0
+ INSTI              0             0             0             0
+ FOSTER             0             0             0             0
+ PSYC               0             0             0             0
+
+
+           PSI
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK            30
+ AGE                0             0
+ FEMALE             0             0             0
+ IMMI1              0             0             0             0
+ IMMI2              0             0             0             0             0
+ PRIOR              0             0             0             0             0
+ INSTI              0             0             0             0             0
+ FOSTER             0             0             0             0             0
+ PSYC               0             0             0             0             0
+
+
+           PSI
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ PRIOR              0
+ INSTI              0             0
+ FOSTER             0             0             0
+ PSYC               0             0             0             0
+
+
+     STARTING VALUES FOR A
+
+
+           NU
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           NU
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK         1.000         0.000         0.000         0.000         0.000
+ AGE            0.000         1.000         0.000         0.000         0.000
+ FEMALE         0.000         0.000         1.000         0.000         0.000
+ IMMI1          0.000         0.000         0.000         1.000         0.000
+ IMMI2          0.000         0.000         0.000         0.000         1.000
+ PRIOR          0.000         0.000         0.000         0.000         0.000
+ INSTI          0.000         0.000         0.000         0.000         0.000
+ FOSTER         0.000         0.000         0.000         0.000         0.000
+ PSYC           0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ CHGRSK         0.000         0.000         0.000         0.000
+ AGE            0.000         0.000         0.000         0.000
+ FEMALE         0.000         0.000         0.000         0.000
+ IMMI1          0.000         0.000         0.000         0.000
+ IMMI2          0.000         0.000         0.000         0.000
+ PRIOR          1.000         0.000         0.000         0.000
+ INSTI          0.000         1.000         0.000         0.000
+ FOSTER         0.000         0.000         1.000         0.000
+ PSYC           0.000         0.000         0.000         1.000
+
+
+           THETA
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK         0.000
+ AGE            0.000         0.000
+ FEMALE         0.000         0.000         0.000
+ IMMI1          0.000         0.000         0.000         0.000
+ IMMI2          0.000         0.000         0.000         0.000         0.000
+ PRIOR          0.000         0.000         0.000         0.000         0.000
+ INSTI          0.000         0.000         0.000         0.000         0.000
+ FOSTER         0.000         0.000         0.000         0.000         0.000
+ PSYC           0.000         0.000         0.000         0.000         0.000
+
+
+           THETA
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ PRIOR          0.000
+ INSTI          0.000         0.000
+ FOSTER         0.000         0.000         0.000
+ PSYC           0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+                5.891        14.027         0.463         0.102         0.088
+
+
+           ALPHA
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+                0.109         0.109         0.061         0.565
+
+
+           BETA
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK         0.000         0.000         0.000         0.000         0.000
+ AGE            0.000         0.000         0.000         0.000         0.000
+ FEMALE         0.000         0.000         0.000         0.000         0.000
+ IMMI1          0.000         0.000         0.000         0.000         0.000
+ IMMI2          0.000         0.000         0.000         0.000         0.000
+ PRIOR          0.000         0.000         0.000         0.000         0.000
+ INSTI          0.000         0.000         0.000         0.000         0.000
+ FOSTER         0.000         0.000         0.000         0.000         0.000
+ PSYC           0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ CHGRSK         0.000         0.000         0.000         0.000
+ AGE            0.000         0.000         0.000         0.000
+ FEMALE         0.000         0.000         0.000         0.000
+ IMMI1          0.000         0.000         0.000         0.000
+ IMMI2          0.000         0.000         0.000         0.000
+ PRIOR          0.000         0.000         0.000         0.000
+ INSTI          0.000         0.000         0.000         0.000
+ FOSTER         0.000         0.000         0.000         0.000
+ PSYC           0.000         0.000         0.000         0.000
+
+
+           PSI
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK        11.756
+ AGE            0.000         4.163
+ FEMALE         0.000         0.137         0.249
+ IMMI1          0.000         0.045        -0.013         0.092
+ IMMI2          0.000        -0.009         0.014        -0.009         0.081
+ PRIOR          0.000        -0.098         0.011        -0.011        -0.003
+ INSTI          0.000         0.031        -0.003         0.009        -0.003
+ FOSTER         0.000         0.046         0.006        -0.006         0.008
+ PSYC           0.000         0.202         0.025         0.010        -0.016
+
+
+           PSI
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ PRIOR          0.097
+ INSTI          0.022         0.097
+ FOSTER         0.007         0.007         0.057
+ PSYC           0.013         0.020        -0.001         0.246
+
+
+     STARTING VALUES FOR B
+
+
+           NU
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           NU
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK         1.000         0.000         0.000         0.000         0.000
+ AGE            0.000         1.000         0.000         0.000         0.000
+ FEMALE         0.000         0.000         1.000         0.000         0.000
+ IMMI1          0.000         0.000         0.000         1.000         0.000
+ IMMI2          0.000         0.000         0.000         0.000         1.000
+ PRIOR          0.000         0.000         0.000         0.000         0.000
+ INSTI          0.000         0.000         0.000         0.000         0.000
+ FOSTER         0.000         0.000         0.000         0.000         0.000
+ PSYC           0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ CHGRSK         0.000         0.000         0.000         0.000
+ AGE            0.000         0.000         0.000         0.000
+ FEMALE         0.000         0.000         0.000         0.000
+ IMMI1          0.000         0.000         0.000         0.000
+ IMMI2          0.000         0.000         0.000         0.000
+ PRIOR          1.000         0.000         0.000         0.000
+ INSTI          0.000         1.000         0.000         0.000
+ FOSTER         0.000         0.000         1.000         0.000
+ PSYC           0.000         0.000         0.000         1.000
+
+
+           THETA
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK         0.000
+ AGE            0.000         0.000
+ FEMALE         0.000         0.000         0.000
+ IMMI1          0.000         0.000         0.000         0.000
+ IMMI2          0.000         0.000         0.000         0.000         0.000
+ PRIOR          0.000         0.000         0.000         0.000         0.000
+ INSTI          0.000         0.000         0.000         0.000         0.000
+ FOSTER         0.000         0.000         0.000         0.000         0.000
+ PSYC           0.000         0.000         0.000         0.000         0.000
+
+
+           THETA
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ PRIOR          0.000
+ INSTI          0.000         0.000
+ FOSTER         0.000         0.000         0.000
+ PSYC           0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+                5.891        14.503         0.491         0.113         0.164
+
+
+           ALPHA
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+                0.113         0.138         0.075         0.572
+
+
+           BETA
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK         0.000         0.000         0.000         0.000         0.000
+ AGE            0.000         0.000         0.000         0.000         0.000
+ FEMALE         0.000         0.000         0.000         0.000         0.000
+ IMMI1          0.000         0.000         0.000         0.000         0.000
+ IMMI2          0.000         0.000         0.000         0.000         0.000
+ PRIOR          0.000         0.000         0.000         0.000         0.000
+ INSTI          0.000         0.000         0.000         0.000         0.000
+ FOSTER         0.000         0.000         0.000         0.000         0.000
+ PSYC           0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ CHGRSK         0.000         0.000         0.000         0.000
+ AGE            0.000         0.000         0.000         0.000
+ FEMALE         0.000         0.000         0.000         0.000
+ IMMI1          0.000         0.000         0.000         0.000
+ IMMI2          0.000         0.000         0.000         0.000
+ PRIOR          0.000         0.000         0.000         0.000
+ INSTI          0.000         0.000         0.000         0.000
+ FOSTER         0.000         0.000         0.000         0.000
+ PSYC           0.000         0.000         0.000         0.000
+
+
+           PSI
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK        11.756
+ AGE            0.000         3.596
+ FEMALE         0.000         0.061         0.250
+ IMMI1          0.000         0.081         0.007         0.100
+ IMMI2          0.000         0.062         0.008        -0.019         0.137
+ PRIOR          0.000         0.006        -0.024        -0.013         0.000
+ INSTI          0.000         0.075         0.026         0.028         0.009
+ FOSTER         0.000         0.006         0.001         0.010        -0.012
+ PSYC           0.000         0.052         0.040        -0.008        -0.006
+
+
+           PSI
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ PRIOR          0.100
+ INSTI          0.009         0.119
+ FOSTER         0.004         0.002         0.070
+ PSYC           0.017         0.009         0.013         0.245
+
+
+     STARTING VALUES FOR C
+
+
+           NU
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           NU
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK         1.000         0.000         0.000         0.000         0.000
+ AGE            0.000         1.000         0.000         0.000         0.000
+ FEMALE         0.000         0.000         1.000         0.000         0.000
+ IMMI1          0.000         0.000         0.000         1.000         0.000
+ IMMI2          0.000         0.000         0.000         0.000         1.000
+ PRIOR          0.000         0.000         0.000         0.000         0.000
+ INSTI          0.000         0.000         0.000         0.000         0.000
+ FOSTER         0.000         0.000         0.000         0.000         0.000
+ PSYC           0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ CHGRSK         0.000         0.000         0.000         0.000
+ AGE            0.000         0.000         0.000         0.000
+ FEMALE         0.000         0.000         0.000         0.000
+ IMMI1          0.000         0.000         0.000         0.000
+ IMMI2          0.000         0.000         0.000         0.000
+ PRIOR          1.000         0.000         0.000         0.000
+ INSTI          0.000         1.000         0.000         0.000
+ FOSTER         0.000         0.000         1.000         0.000
+ PSYC           0.000         0.000         0.000         1.000
+
+
+           THETA
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK         0.000
+ AGE            0.000         0.000
+ FEMALE         0.000         0.000         0.000
+ IMMI1          0.000         0.000         0.000         0.000
+ IMMI2          0.000         0.000         0.000         0.000         0.000
+ PRIOR          0.000         0.000         0.000         0.000         0.000
+ INSTI          0.000         0.000         0.000         0.000         0.000
+ FOSTER         0.000         0.000         0.000         0.000         0.000
+ PSYC           0.000         0.000         0.000         0.000         0.000
+
+
+           THETA
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ PRIOR          0.000
+ INSTI          0.000         0.000
+ FOSTER         0.000         0.000         0.000
+ PSYC           0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+                5.891        14.127         0.519         0.118         0.108
+
+
+           ALPHA
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+                0.113         0.123         0.075         0.623
+
+
+           BETA
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK         0.000         0.000         0.000         0.000         0.000
+ AGE            0.000         0.000         0.000         0.000         0.000
+ FEMALE         0.000         0.000         0.000         0.000         0.000
+ IMMI1          0.000         0.000         0.000         0.000         0.000
+ IMMI2          0.000         0.000         0.000         0.000         0.000
+ PRIOR          0.000         0.000         0.000         0.000         0.000
+ INSTI          0.000         0.000         0.000         0.000         0.000
+ FOSTER         0.000         0.000         0.000         0.000         0.000
+ PSYC           0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ CHGRSK         0.000         0.000         0.000         0.000
+ AGE            0.000         0.000         0.000         0.000
+ FEMALE         0.000         0.000         0.000         0.000
+ IMMI1          0.000         0.000         0.000         0.000
+ IMMI2          0.000         0.000         0.000         0.000
+ PRIOR          0.000         0.000         0.000         0.000
+ INSTI          0.000         0.000         0.000         0.000
+ FOSTER         0.000         0.000         0.000         0.000
+ PSYC           0.000         0.000         0.000         0.000
+
+
+           PSI
+              CHGRSK        AGE           FEMALE        IMMI1         IMMI2
+              ________      ________      ________      ________      ________
+ CHGRSK        11.756
+ AGE            0.000         3.526
+ FEMALE         0.000         0.090         0.250
+ IMMI1          0.000         0.023         0.005         0.104
+ IMMI2          0.000        -0.113         0.000        -0.013         0.097
+ PRIOR          0.000        -0.019        -0.002        -0.013         0.002
+ INSTI          0.000         0.060         0.017         0.019        -0.004
+ FOSTER         0.000        -0.024        -0.011         0.001         0.001
+ PSYC           0.000         0.105        -0.012        -0.017        -0.011
+
+
+           PSI
+              PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________
+ PRIOR          0.100
+ INSTI         -0.004         0.108
+ FOSTER         0.001        -0.005         0.070
+ PSYC           0.005         0.018         0.010         0.235
+
+
+SAVEDATA INFORMATION
+
+
+  Save file
+    fft_2_rsk_*.dat
+
+  Order of variables
+
+    CHGRSK
+    AGE
+    FEMALE
+    IMMI1
+    IMMI2
+    PRIOR
+    INSTI
+    FOSTER
+    PSYC
+    AGECOH
+
+  Save file format           Free
+
+  Save file record length    10000
+
+  Save missing symbol        *
+
+
+     Beginning Time:  03:33:13
+        Ending Time:  03:33:20
+       Elapsed Time:  00:00:07
 
 
 

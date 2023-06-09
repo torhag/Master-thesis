@@ -1,6 +1,6 @@
 Mplus VERSION 8.9
 MUTHEN & MUTHEN
-05/10/2023   5:47 PM
+06/06/2023   3:32 AM
 
 INPUT INSTRUCTIONS
 
@@ -20,47 +20,47 @@ INPUT INSTRUCTIONS
           immi1 immi2 female country                      ! Demographic
           ! Var # 12--20
           travel venu team                                ! Treament var
-          prior insti video refer foster psyhlth
+          prior insti video refer foster psyc
           ! Var # 21--26
-          innhome innvio innsch innlaw inndrug innsum     ! Admission (T0)
+          innhome innvio innsch innlaw inndrug bhv0       ! Admission (T0)
           ! Var # 27--35
           innyls1 innyls2 innyls3 innyls4 innyls5
-          innyls6 innyls7 innyls8 innylss
+          innyls6 innyls7 innyls8 rsk0
           ! Var # 36--41
-          outhome outvio outsch outlaw outdrug outsum     ! Discharge (T1)
+          outhome outvio outsch outlaw outdrug bhv1       ! Discharge (T1)
           ! Var # 42--50
           outyls1 outyls2 outyls3 outyls4 outyls5
-          outyls6 outyls7 outyls8 outylss
+          outyls6 outyls7 outyls8 rsk1
           ! Var # 51--56                                  ! Follow-ups
-          home6 vio6 sch6 law6 drug6 sum6                 ! 6-month (T2)
+          home6 vio6 sch6 law6 drug6 bhv6                 ! 6-month (T2)
           ! Var # 57--62
-          home12 vio12 sch12 law12 drug12 sum12           ! 12-month (T3)
+          home12 vio12 sch12 law12 drug12 bhv12           ! 12-month (T3)
           ! Var # 63--68
-          home18 vio18 sch18 law18 drug18 sum18           ! 18-month (T4)
+          home18 vio18 sch18 law18 drug18 bhv18           ! 18-month (T4)
           ! Var # 69--75
-          t0 t1 t2 t3 t4 chgsum chgyls                    ! Derived var
+          t0 t1 t2 t3 t4 chgbhv chgrsk                    ! Derived var
           ;
 
       usevar =
-          innsum outsum sum6 sum12 sum18
-          innylss outylss
+          bhv0 bhv1 bhv6 bhv12 bhv18
+          rsk0 rsk1
           age female immi1 immi2
-          prior insti foster psyhlth
-          chgsum chgyls
+          prior insti foster psyc
+          chgbhv chgrsk
           ;
 
       missing = all (-999);
 
   DATA IMPUTATION:
       impute =
-          innsum outsum sum6 sum12 sum18
-          innylss outylss
+          bhv0 bhv1 bhv6 bhv12 bhv18
+          rsk0 rsk1
           age female immi1 immi2
-          prior insti foster psyhlth
-          chgsum chgyls
+          prior insti foster psyc
+          chgbhv chgrsk
           ;
       ndatasets = 10;
-      save = fft_0_desc_*.dat;
+      save = fft_00_overall_*.dat;
 
   ANALYSIS:
       type = basic;
@@ -94,17 +94,17 @@ Number of continuous latent variables                            0
 Observed dependent variables
 
   Continuous
-   INNSUM      OUTSUM      SUM6        SUM12       SUM18       INNYLSS
-   OUTYLSS     AGE         FEMALE      IMMI1       IMMI2       PRIOR
-   INSTI       FOSTER      PSYHLTH     CHGSUM      CHGYLS
+   BHV0        BHV1        BHV6        BHV12       BHV18       RSK0
+   RSK1        AGE         FEMALE      IMMI1       IMMI2       PRIOR
+   INSTI       FOSTER      PSYC        CHGBHV      CHGRSK
 
 
 Variables used for imputation
 
   Variables imputed as continuous
-   INNSUM      OUTSUM      SUM6        SUM12       SUM18       INNYLSS
-   OUTYLSS     AGE         FEMALE      IMMI1       IMMI2       PRIOR
-   INSTI       FOSTER      PSYHLTH     CHGSUM      CHGYLS
+   BHV0        BHV1        BHV6        BHV12       BHV18       RSK0
+   RSK1        AGE         FEMALE      IMMI1       IMMI2       PRIOR
+   INSTI       FOSTER      PSYC        CHGBHV      CHGRSK
 
 
 Estimator                                                       ML
@@ -127,10 +127,262 @@ Specifications for Data Imputation
   Number of imputed data sets                                   10
   H1 imputation model type                              COVARIANCE
   Iteration intervals for thinning                             100
+
 Input data file(s)
   FFT.dat
 
 Input data format  FREE
+
+
+SUMMARY OF DATA FOR THE FIRST DATA SET
+
+     Number of missing data patterns             1
+
+
+SUMMARY OF MISSING DATA PATTERNS FOR THE FIRST DATA SET
+
+
+     MISSING DATA PATTERNS (x = not missing)
+
+           1
+ BHV0      x
+ BHV1      x
+ BHV6      x
+ BHV12     x
+ BHV18     x
+ RSK0      x
+ RSK1      x
+ AGE       x
+ FEMALE    x
+ IMMI1     x
+ IMMI2     x
+ PRIOR     x
+ INSTI     x
+ FOSTER    x
+ PSYC      x
+ CHGBHV    x
+ CHGRSK    x
+
+
+     MISSING DATA PATTERN FREQUENCIES
+
+    Pattern   Frequency
+          1         518
+
+
+COVARIANCE COVERAGE OF DATA FOR THE FIRST DATA SET
+
+Minimum covariance coverage value   0.100
+
+
+     PROPORTION OF DATA PRESENT
+
+
+           Covariance Coverage
+              BHV0          BHV1          BHV6          BHV12         BHV18
+              ________      ________      ________      ________      ________
+ BHV0           1.000
+ BHV1           1.000         1.000
+ BHV6           1.000         1.000         1.000
+ BHV12          1.000         1.000         1.000         1.000
+ BHV18          1.000         1.000         1.000         1.000         1.000
+ RSK0           1.000         1.000         1.000         1.000         1.000
+ RSK1           1.000         1.000         1.000         1.000         1.000
+ AGE            1.000         1.000         1.000         1.000         1.000
+ FEMALE         1.000         1.000         1.000         1.000         1.000
+ IMMI1          1.000         1.000         1.000         1.000         1.000
+ IMMI2          1.000         1.000         1.000         1.000         1.000
+ PRIOR          1.000         1.000         1.000         1.000         1.000
+ INSTI          1.000         1.000         1.000         1.000         1.000
+ FOSTER         1.000         1.000         1.000         1.000         1.000
+ PSYC           1.000         1.000         1.000         1.000         1.000
+ CHGBHV         1.000         1.000         1.000         1.000         1.000
+ CHGRSK         1.000         1.000         1.000         1.000         1.000
+
+
+           Covariance Coverage
+              RSK0          RSK1          AGE           FEMALE        IMMI1
+              ________      ________      ________      ________      ________
+ RSK0           1.000
+ RSK1           1.000         1.000
+ AGE            1.000         1.000         1.000
+ FEMALE         1.000         1.000         1.000         1.000
+ IMMI1          1.000         1.000         1.000         1.000         1.000
+ IMMI2          1.000         1.000         1.000         1.000         1.000
+ PRIOR          1.000         1.000         1.000         1.000         1.000
+ INSTI          1.000         1.000         1.000         1.000         1.000
+ FOSTER         1.000         1.000         1.000         1.000         1.000
+ PSYC           1.000         1.000         1.000         1.000         1.000
+ CHGBHV         1.000         1.000         1.000         1.000         1.000
+ CHGRSK         1.000         1.000         1.000         1.000         1.000
+
+
+           Covariance Coverage
+              IMMI2         PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________      ________
+ IMMI2          1.000
+ PRIOR          1.000         1.000
+ INSTI          1.000         1.000         1.000
+ FOSTER         1.000         1.000         1.000         1.000
+ PSYC           1.000         1.000         1.000         1.000         1.000
+ CHGBHV         1.000         1.000         1.000         1.000         1.000
+ CHGRSK         1.000         1.000         1.000         1.000         1.000
+
+
+           Covariance Coverage
+              CHGBHV        CHGRSK
+              ________      ________
+ CHGBHV         1.000
+ CHGRSK         1.000         1.000
+
+
+
+RESULTS FOR BASIC ANALYSIS
+
+NOTE:  These are average results over 10 data sets.
+
+
+     ESTIMATED SAMPLE STATISTICS
+
+
+           Means
+              BHV0          BHV1          BHV6          BHV12         BHV18
+              ________      ________      ________      ________      ________
+                4.106         4.770         4.587         4.642         4.634
+
+
+           Means
+              RSK0          RSK1          AGE           FEMALE        IMMI1
+              ________      ________      ________      ________      ________
+               11.701         5.994        14.214         0.494         0.112
+
+
+           Means
+              IMMI2         PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________      ________
+                0.120         0.112         0.124         0.071         0.591
+
+
+           Means
+              CHGBHV        CHGRSK
+              ________      ________
+                0.664         5.707
+
+
+           Covariances
+              BHV0          BHV1          BHV6          BHV12         BHV18
+              ________      ________      ________      ________      ________
+ BHV0           0.921
+ BHV1           0.187         0.347
+ BHV6           0.195         0.219         0.576
+ BHV12          0.179         0.118         0.349         0.491
+ BHV18          0.180         0.115         0.292         0.336         0.497
+ RSK0          -2.901        -0.808        -1.005        -1.070        -0.931
+ RSK1          -1.816        -1.422        -1.619        -1.224        -1.146
+ AGE           -0.222        -0.061        -0.187        -0.222        -0.224
+ FEMALE         0.036         0.021         0.013         0.005         0.008
+ IMMI1         -0.035        -0.011         0.006         0.009        -0.010
+ IMMI2          0.009         0.002         0.008        -0.004         0.001
+ PRIOR         -0.041         0.001        -0.009        -0.032        -0.014
+ INSTI         -0.114        -0.026        -0.018        -0.009        -0.016
+ FOSTER        -0.004         0.001        -0.033        -0.037        -0.022
+ PSYC          -0.082        -0.017        -0.050        -0.053        -0.056
+ CHGBHV        -0.735         0.160         0.024        -0.061        -0.064
+ CHGRSK        -1.085         0.614         0.614         0.155         0.215
+
+
+           Covariances
+              RSK0          RSK1          AGE           FEMALE        IMMI1
+              ________      ________      ________      ________      ________
+ RSK0          28.800
+ RSK1          15.813        19.925
+ AGE            0.470        -0.223         3.767
+ FEMALE        -0.286        -0.225         0.095         0.250
+ IMMI1          0.089         0.024         0.047         0.001         0.099
+ IMMI2         -0.177        -0.115        -0.024         0.006        -0.013
+ PRIOR          0.395         0.205        -0.034        -0.005        -0.013
+ INSTI          0.272         0.201         0.058         0.014         0.019
+ FOSTER         0.021         0.118         0.006        -0.002         0.002
+ PSYC           0.563         0.420         0.115         0.015        -0.006
+ CHGBHV         2.093         0.394         0.161        -0.015         0.024
+ CHGRSK        12.987        -4.112         0.692        -0.062         0.066
+
+
+           Covariances
+              IMMI2         PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________      ________
+ IMMI2          0.105
+ PRIOR          0.000         0.099
+ INSTI          0.001         0.007         0.108
+ FOSTER        -0.001         0.004         0.001         0.066
+ PSYC          -0.011         0.011         0.016         0.008         0.242
+ CHGBHV        -0.006         0.041         0.088         0.005         0.065
+ CHGRSK        -0.061         0.189         0.071        -0.097         0.142
+
+
+           Covariances
+              CHGBHV        CHGRSK
+              ________      ________
+ CHGBHV         0.895
+ CHGRSK         1.699        17.099
+
+
+           Correlations
+              BHV0          BHV1          BHV6          BHV12         BHV18
+              ________      ________      ________      ________      ________
+ BHV0           1.000
+ BHV1           0.330         1.000
+ BHV6           0.268         0.489         1.000
+ BHV12          0.266         0.285         0.656         1.000
+ BHV18          0.266         0.278         0.547         0.681         1.000
+ RSK0          -0.563        -0.256        -0.247        -0.284        -0.246
+ RSK1          -0.424        -0.541        -0.478        -0.391        -0.364
+ AGE           -0.119        -0.053        -0.127        -0.163        -0.164
+ FEMALE         0.076         0.071         0.034         0.014         0.023
+ IMMI1         -0.116        -0.059         0.025         0.041        -0.047
+ IMMI2          0.027         0.013         0.034        -0.016         0.006
+ PRIOR         -0.135         0.003        -0.037        -0.147        -0.065
+ INSTI         -0.359        -0.132        -0.070        -0.040        -0.070
+ FOSTER        -0.015         0.006        -0.168        -0.203        -0.124
+ PSYC          -0.174        -0.058        -0.133        -0.153        -0.161
+ CHGBHV        -0.809         0.288         0.033        -0.092        -0.097
+ CHGRSK        -0.273         0.252         0.196         0.053         0.074
+
+
+           Correlations
+              RSK0          RSK1          AGE           FEMALE        IMMI1
+              ________      ________      ________      ________      ________
+ RSK0           1.000
+ RSK1           0.660         1.000
+ AGE            0.045        -0.026         1.000
+ FEMALE        -0.107        -0.101         0.098         1.000
+ IMMI1          0.053         0.017         0.078         0.004         1.000
+ IMMI2         -0.101        -0.079        -0.038         0.040        -0.131
+ PRIOR          0.233         0.146        -0.055        -0.033        -0.126
+ INSTI          0.154         0.137         0.092         0.086         0.183
+ FOSTER         0.015         0.103         0.012        -0.019         0.020
+ PSYC           0.213         0.192         0.120         0.061        -0.041
+ CHGBHV         0.412         0.093         0.088        -0.033         0.081
+ CHGRSK         0.585        -0.223         0.086        -0.030         0.050
+
+
+           Correlations
+              IMMI2         PRIOR         INSTI         FOSTER        PSYC
+              ________      ________      ________      ________      ________
+ IMMI2          1.000
+ PRIOR          0.001         1.000
+ INSTI          0.006         0.071         1.000
+ FOSTER        -0.010         0.044         0.010         1.000
+ PSYC          -0.068         0.071         0.098         0.063         1.000
+ CHGBHV        -0.020         0.139         0.282         0.019         0.140
+ CHGRSK        -0.046         0.145         0.052        -0.091         0.070
+
+
+           Correlations
+              CHGBHV        CHGRSK
+              ________      ________
+ CHGBHV         1.000
+ CHGRSK         0.434         1.000
 
 
 UNIVARIATE SAMPLE STATISTICS
@@ -141,19 +393,19 @@ UNIVARIATE SAMPLE STATISTICS
          Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
         Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
 
-     INNSUM                4.106      -1.078       0.000    0.19%       3.000      4.000      4.000
+     BHV0                  4.106      -1.078       0.000    0.19%       3.000      4.000      4.000
              518.000       0.921       0.959       5.000   41.31%       5.000      5.000
-     OUTSUM                4.770      -3.184       1.000    0.39%       5.000      5.000      5.000
+     BHV1                  4.770      -3.184       1.000    0.39%       5.000      5.000      5.000
              518.000       0.347      11.749       5.000   83.20%       5.000      5.000
-     SUM6                  3.467      -0.908       0.000   26.18%       0.000      4.000      5.000
-             508.000       4.580      -1.037       5.000   57.48%       5.000      5.000
-     SUM12                 4.712      -3.135       0.000    0.31%       4.000      5.000      5.000
+     BHV6                  4.684      -2.898       0.000    0.27%       4.000      5.000      5.000
+             376.000       0.488      10.528       5.000   77.66%       5.000      5.000
+     BHV12                 4.712      -3.135       0.000    0.31%       4.000      5.000      5.000
              326.000       0.444      12.655       5.000   79.14%       5.000      5.000
-     SUM18                 4.700      -2.888       0.000    0.36%       4.000      5.000      5.000
+     BHV18                 4.700      -2.888       0.000    0.36%       4.000      5.000      5.000
              277.000       0.448      10.956       5.000   78.70%       5.000      5.000
-     INNYLSS              11.701       0.406       0.000    0.19%       7.000     10.000     12.000
+     RSK0                 11.701       0.406       0.000    0.19%       7.000     10.000     12.000
              518.000      28.800       0.220      29.000    0.58%      13.000     16.000
-     OUTYLSS               5.994       1.210       0.000    5.02%       2.000      4.000      5.000
+     RSK1                  5.994       1.210       0.000    5.02%       2.000      4.000      5.000
              518.000      19.925       1.916      26.000    0.19%       6.000      9.000
      AGE                  14.214      -0.687       6.000    0.19%      13.000     14.000     15.000
              518.000       3.767       0.666      18.000    1.16%      15.000     16.000
@@ -169,80 +421,50 @@ UNIVARIATE SAMPLE STATISTICS
              518.000       0.108       3.235       1.000   12.36%       0.000      0.000
      FOSTER                0.071       3.328       0.000   92.86%       0.000      0.000      0.000
              518.000       0.066       9.077       1.000    7.14%       0.000      0.000
-     PSYHLTH               0.591      -0.369       0.000   40.93%       0.000      0.000      1.000
+     PSYC                  0.591      -0.369       0.000   40.93%       0.000      0.000      1.000
              518.000       0.242      -1.864       1.000   59.07%       1.000      1.000
-     CHGSUM                0.664       0.850      -3.000    0.19%       0.000      0.000      0.000
+     CHGBHV                0.664       0.850      -3.000    0.19%       0.000      0.000      0.000
              518.000       0.895       1.818       5.000    0.19%       1.000      1.000
-     CHGYLS                5.707       0.563     -12.000    0.19%       2.000      4.000      5.000
+     CHGRSK                5.707       0.563     -12.000    0.19%       2.000      4.000      5.000
              518.000      17.099       1.545      25.000    0.19%       6.000      9.000
 
 
-RESULTS FOR BASIC ANALYSIS
-
-NOTE:  These are average results over 10 data sets.
-
-           Correlations
-              INNSUM        OUTSUM        SUM6          SUM12         SUM18
-              ________      ________      ________      ________      ________
- INNSUM         1.000
- OUTSUM         0.330         1.000
- SUM6           0.184         0.332         1.000
- SUM12          0.268         0.290         0.558         1.000
- SUM18          0.266         0.271         0.508         0.708         1.000
- INNYLSS       -0.563        -0.256        -0.080        -0.267        -0.238
- OUTYLSS       -0.424        -0.541        -0.347        -0.405        -0.375
- AGE           -0.119        -0.053        -0.065        -0.145        -0.142
- FEMALE         0.076         0.071         0.040         0.006         0.007
- IMMI1         -0.116        -0.059        -0.019         0.010        -0.070
- IMMI2          0.027         0.013        -0.075        -0.040        -0.025
- PRIOR         -0.135         0.003        -0.043        -0.117        -0.060
- INSTI         -0.359        -0.132        -0.089        -0.067        -0.086
- FOSTER        -0.015         0.006        -0.147        -0.205        -0.174
- PSYHLTH       -0.174        -0.058         0.018        -0.112        -0.119
- CHGSUM        -0.809         0.288         0.020        -0.092        -0.102
- CHGYLS        -0.273         0.252         0.270         0.091         0.097
+SAVEDATA INFORMATION
 
 
-           Correlations
-              INNYLSS       OUTYLSS       AGE           FEMALE        IMMI1
-              ________      ________      ________      ________      ________
- INNYLSS        1.000
- OUTYLSS        0.660         1.000
- AGE            0.045        -0.026         1.000
- FEMALE        -0.107        -0.101         0.098         1.000
- IMMI1          0.053         0.017         0.078         0.004         1.000
- IMMI2         -0.101        -0.079        -0.038         0.040        -0.131
- PRIOR          0.233         0.146        -0.055        -0.033        -0.126
- INSTI          0.154         0.137         0.092         0.086         0.183
- FOSTER         0.015         0.103         0.012        -0.019         0.020
- PSYHLTH        0.213         0.192         0.120         0.061        -0.041
- CHGSUM         0.412         0.093         0.088        -0.033         0.081
- CHGYLS         0.585        -0.223         0.086        -0.030         0.050
+  Save file
+    fft_00_overall_*.dat
+
+  Order of variables
+
+    BHV0
+    BHV1
+    BHV6
+    BHV12
+    BHV18
+    RSK0
+    RSK1
+    AGE
+    FEMALE
+    IMMI1
+    IMMI2
+    PRIOR
+    INSTI
+    FOSTER
+    PSYC
+    CHGBHV
+    CHGRSK
+
+  Save file format           Free
+
+  Save file record length    10000
+
+  Save missing symbol        *
 
 
-           Correlations
-              IMMI2         PRIOR         INSTI         FOSTER        PSYHLTH
-              ________      ________      ________      ________      ________
- IMMI2          1.000
- PRIOR          0.001         1.000
- INSTI          0.006         0.071         1.000
- FOSTER        -0.010         0.044         0.010         1.000
- PSYHLTH       -0.068         0.071         0.098         0.063         1.000
- CHGSUM        -0.020         0.139         0.282         0.019         0.140
- CHGYLS        -0.046         0.145         0.052        -0.091         0.070
-
-
-           Correlations
-              CHGSUM        CHGYLS
-              ________      ________
- CHGSUM         1.000
- CHGYLS         0.434         1.000
-
-
-
-     Beginning Time:  17:47:30
-        Ending Time:  17:47:39
-       Elapsed Time:  00:00:09
+     Beginning Time:  03:32:46
+        Ending Time:  03:32:50
+       Elapsed Time:  00:00:04
 
 
 
